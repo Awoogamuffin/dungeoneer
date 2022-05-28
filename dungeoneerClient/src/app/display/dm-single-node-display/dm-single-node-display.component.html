@@ -1,0 +1,12 @@
+<div *ngIf="this.itemData">
+    <button mat-raised-button (click)="onEdit()">Edit</button>
+    <div style="display: flex; flex-direction: column; width: 90%">
+        <div *ngFor="let key of this.itemKeys" style="display: flex">
+            <div style="padding-top: 3px; margin-right: 5px; flex-grow: 0; min-width: 25%; text-align: right; font-weight: bold; overflow: hidden;">{{ key | dmLabel:schema:nodeType }}:</div>
+            <ng-container [ngSwitch]="this.getKeyType(key)">
+                <!-- this will get expanded as new types are incorporated-->
+                <div *ngSwitchDefault class="dataDisplay" [innerHTML]="key | dmValue:itemData:schema:nodeType:itemData | dmSafeHTML"></div>
+            </ng-container>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+<form [formGroup]="this.formGroup" (submit)="onSubmit()">
+<dm-default-dialog [title]="'Edit'" *ngIf="this.inputs">
+    <dm-input *ngFor="let inputData of this.inputs" [inputData]="inputData"></dm-input>
+    <div dm-dialog-actions style="display: flex; justify-content: right; width: 100%;">
+        <button mat-raised-button type="button" style="margin-right: 5px" (click)="onCancel()">Cancel</button>
+        <button mat-raised-button type="submit" [ngClass]="this.saveButtonClass" (click)="onSubmit()">Save</button>
+    </div>
+</dm-default-dialog>
+</form>

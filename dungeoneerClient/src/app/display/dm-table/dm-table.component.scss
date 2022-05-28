@@ -1,0 +1,17 @@
+@use '../../dm-scss-variables.scss' as v;
+
+mat-row, mat-header-row, mat-paginator {
+    min-height: 20px;
+    font-size: 0.8em;
+    cursor: pointer;
+}
+
+mat-row {
+    &.selected {
+        background-color: v.$selected;
+    }
+}
+
+.km-tiny-col {
+    max-width: 70px;
+}

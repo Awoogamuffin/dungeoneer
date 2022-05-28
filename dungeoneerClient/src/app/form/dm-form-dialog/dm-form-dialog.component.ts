@@ -1,0 +1,66 @@
+import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef } from '@angular/core';
+import { distinctUntilChanged, takeUntil } from 'rxjs';
+import { DmDialogComponent } from 'src/app/display/dialog/dm-dialog/dm-dialog.component';
+import { DmFormComponent } from '../dm-form/dm-form.component';
+import { DmFormInputData } from '../DmFormInputData';
+
+@Component({
+  selector: 'dm-form-dialog',
+  templateUrl: './dm-form-dialog.component.html',
+  styleUrls: ['./dm-form-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class DmFormDialogComponent extends DmFormComponent implements OnInit {
+
+  @Input()
+  dmDialog?: DmDialogComponent;
+
+  saveButtonClass: string = 'mat-primary';
+
+  constructor() {
+    super();
+  }
+
+  override ngOnInit(): void {
+    super.ngOnInit();
+
+    this.formGroup.valueChanges.pipe(distinctUntilChanged((a: any, b: any) => {
+      return JSON.stringify(a) === JSON.stringify(b)
+    }),takeUntil(this.unsubscribeAll)).subscribe((data) => {
+      this.checkSaveButtonClass();
+    });
+
+    setTimeout(() => {
+      this.checkSaveButtonClass();
+    });
+    
+  }
+
+  onCancel() {
+    if (this.dmDialog) {
+      this.dmDialog.close();
+    }
+  }
+
+  override onSubmit(): any {
+
+    const toSubmit = super.onSubmit();
+
+    if (toSubmit && this.dmDialog) {
+      this.dmDialog.close(toSubmit);
+    }
+ 
+    return toSubmit;
+  }
+
+  checkSaveButtonClass() {
+    console.log('checking save button class', this.formGroup.valid);
+    const saveClass: string = this.formGroup.valid ? 'mat-primary' : 'mat-warn';
+    if (saveClass !== this.saveButtonClass) {
+      console.log('setting save class', this.saveButtonClass, saveClass);
+      this.saveButtonClass = saveClass;
+      //this.changeDetectorRef.detectChanges();
+    }
+  }
+
+}

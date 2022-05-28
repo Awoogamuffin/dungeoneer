@@ -1,0 +1,15 @@
+dm-input {
+    margin-right: 10px;
+}
+
+.searchDiv {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.halfContainer {
+    padding: 10px;
+    overflow-y: auto;
+    flex: 1;
+    max-height:100%;
+}

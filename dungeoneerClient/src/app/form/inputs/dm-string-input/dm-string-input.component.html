@@ -1,0 +1,22 @@
+<mat-form-field>
+<mat-label>{{ label }}</mat-label>
+<input matInput [required]="abstractControl.hasError('required')" [formControl]="this.getFormControl()" type="text">
+<button class="clear-button" tabindex="-1" type="button" [class.visible]="abstractControl.value" matSuffix mat-icon-button aria-label="Clear" (click)="this.clearString()">
+    <mat-icon style="line-height: 1.29">close</mat-icon>
+</button>
+<mat-error *ngIf="abstractControl.hasError('required')">
+    Value is required
+</mat-error>
+<mat-error *ngIf="abstractControl.hasError('startsWith')">
+    Value must start with "{{ abstractControl.errors && abstractControl.errors['startsWith'] ? abstractControl.errors['startsWith'].startsWith : '' }}"
+</mat-error>
+<mat-error *ngIf="abstractControl.hasError('minlength')">
+    Value must have at least {{ abstractControl.errors && abstractControl.errors['minLength'] ? abstractControl.errors['minLength'].requiredLength : '' }} characters
+</mat-error>
+<mat-error *ngIf="abstractControl.hasError('maxlength')">
+    Value must have at most {{ abstractControl.errors && abstractControl.errors['maxlength'] ? abstractControl.errors['maxlength'].requiredLength : ''}} characters
+</mat-error>
+<mat-error *ngIf="abstractControl.hasError('unique')">
+    Value already in use
+</mat-error>
+</mat-form-field>

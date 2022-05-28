@@ -1,0 +1,16 @@
+<mat-form-field>
+    <mat-label>{{ label }}</mat-label>
+    <input matInput dmIntInputDirective [required]="abstractControl.hasError('required')" [formControl]="this.getFormControl()" type="text" inputmode="numeric">
+    <mat-error *ngIf="abstractControl.hasError('required')">
+        Value is required
+    </mat-error>
+    <mat-error *ngIf="abstractControl.hasError('min')">
+        Value must be at least {{ abstractControl.errors && abstractControl.errors['min'] ? abstractControl.errors['min'].min : '' }}
+    </mat-error>
+    <mat-error *ngIf="abstractControl.hasError('max')">
+        Value must be no more than {{ abstractControl.errors && abstractControl.errors['max'] ? abstractControl.errors['max'].max : ''}}
+    </mat-error>
+    <mat-error *ngIf="abstractControl.hasError('unique')">
+        Value already in use
+    </mat-error>
+    </mat-form-field>

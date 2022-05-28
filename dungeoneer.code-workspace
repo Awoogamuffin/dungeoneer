@@ -1,0 +1,26 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "dungeoneerServer"
+		},
+		{
+			"path": "dungeoneerClient"
+		},
+		{
+			"path": "dungeoneerCommon"
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"dungeoneerServer": true,
+			"dungeoneerClient": true,
+			"dungeoneerCommon": true,
+			"dgraphData": true
+		},
+		"jest.autoRun": null,
+    	"jest.disabledWorkspaceFolders": ["dungeoneer", "dungeoneerCommon", "dungeoneerClient"]
+	}
+}

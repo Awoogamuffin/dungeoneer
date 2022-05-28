@@ -1,0 +1,7 @@
+<mat-dialog-content>
+<h2 *ngIf="title && title != ''" mat-dialog-title>{{ title }}</h2>
+<ng-content></ng-content>
+</mat-dialog-content>
+<mat-dialog-actions>
+<ng-content select="[dm-dialog-actions]"></ng-content>
+</mat-dialog-actions>

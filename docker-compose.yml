@@ -1,0 +1,63 @@
+version: "3.2"
+services:
+
+  # this just runs ng-serve on the angular project
+  dungeoneer-client:
+    image: trion/ng-cli
+    ports:
+      - 4201:4200
+    working_dir: /app/dungeoneerClient
+    volumes:
+      - ./:/app
+    command: ng serve --host=0.0.0.0
+
+  # the server in node
+  dungeoneer-server:
+    image: node
+    working_dir: /home/node/dungeoneerServer
+    ports:
+        - 1759:1759
+    volumes:
+        - ./:/home/node
+    command: npm run dev
+    environment:
+      - "dgraphurl=dgraph-alpha:9080"
+
+  # compile the server typescript
+  dungeoneer-server-tsc:
+    image: node
+    working_dir: /home/node/dungeoneerServer
+    volumes:
+        - ./:/home/node
+    command: npm run watch
+
+  dungeoneer-common-tsc:
+    image: node
+    working_dir: /home/node/dungeoneerCommon
+    volumes:
+        - ./:/home/node
+    command: npm run watch
+
+  # the two following services run dgraph
+  dgraph-alpha:
+    image: dgraph/dgraph:latest
+    volumes:
+      - ./dgraphData:/dgraph
+    ports:
+      - 8080:8080
+    command: dgraph alpha --my=dgraph-alpha:7080 --zero=dgraph-zero:5080 --export /export  --security whitelist=172.0.0.0:172.50.0.20
+  
+  dgraph-zero:
+    image: dgraph/dgraph:latest
+    volumes:
+      - ./dgraphData:/dgraph
+    command: dgraph zero --my=dgraph-zero:5080
+
+  # ratel is a nice little client that allows you to run queries on your database and visualise the results
+  ratel:
+    image: dgraph/ratel
+    volumes:
+      - ./dgraphData:/dgraph
+    ports:
+      - 8000:8000
+    command: dgraph-ratel
