@@ -158,6 +158,7 @@ export class DmDgraphClient implements DmDatabaseClient {
 
                     case 'int':
                         alterStrings.push(`${nodeTypeName}_${varName}: int @index(int) .`);
+                        break;
 
                     case 'string':
                         // a workaround to do with regex limitations (and also apparently it's bad form to have two indexes on the same property)
