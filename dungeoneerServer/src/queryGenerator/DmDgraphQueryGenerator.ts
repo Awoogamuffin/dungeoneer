@@ -200,18 +200,29 @@ function getNodeVars(schema: Schema, nodeType: string, modality: string): string
                 if (!edgeSchema) {
                     throw new Error('no nodeType found for edge ' + nodeVar.nodeType);
                 }
-    
 
                 // for now just retrieving the uid and label, but we may well need to fetch a lot more depending on modality
                 let label = edgeSchema.labelVar || 'name';
-                query += `${nodeType}_${nodeVarName} {\nuid\n`;
+                query += `${nodeType}_${nodeVarName} `;
+
+
+                if (nodeVar.facets) {
+                    query += '@facets ';
+                }
+                
+                query += `{\nuid\n`;
                 query += `${nodeVar.nodeType}_${label}\n`;
+
+                // I'm adding this hack here quickly, but really this needs to be fixed by implementing modalities
+                if (nodeVar.nodeType === 'item') {
+                    query += `${nodeVar.nodeType}_weight\n`
+                }
     
                 query += "}\n";
                 break;
     
             default:
-                //a string value is returned directly, but with the <nodeType>_ prefix
+                // if nothing defined above, simply return the value as is (with nodeType prefix)
                 query += `${nodeType}_${nodeVarName}\n`;
             }
     }
@@ -224,7 +235,6 @@ function getFilters(filterVars: string[], schema: Schema, params: DmFetchParams,
     const search = params.search;
 
     const filters: string[] = [];
-
     for (const filterVar of filterVars) {
         const nodeVarSchema = schema.nodeTypes[nodeType]?.nodeVars[filterVar];
 

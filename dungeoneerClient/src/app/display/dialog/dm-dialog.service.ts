@@ -15,6 +15,7 @@ export class DmDialogService {
     if (!matDialogConfig) {
       matDialogConfig = new MatDialogConfig();
       matDialogConfig.autoFocus = false;
+      matDialogConfig.disableClose = true;
       matDialogConfig.data = dmDialogConfig;
     }
 

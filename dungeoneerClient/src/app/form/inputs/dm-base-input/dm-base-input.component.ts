@@ -24,6 +24,9 @@ export class DmBaseInputComponent extends DmUnsubscriberComponent implements OnI
   @Input()
   inputData!: DmFormInputData;
 
+  @Input()
+  floatLabel?: 'always' | 'never' | 'auto';
+
   constructor() {
     super();
   }
@@ -35,7 +38,10 @@ export class DmBaseInputComponent extends DmUnsubscriberComponent implements OnI
       this.abstractControl = this.inputData.abstractControl;
 
       if (this.inputData.valueBeforeEdit) {
-        this.abstractControl.setValue(this.inputData.valueBeforeEdit, { emitEvent: false })
+        const toSet = typeof this.inputData.valueBeforeEdit === 'object' ?
+          JSON.parse(JSON.stringify(this.inputData.valueBeforeEdit)) :
+          this.inputData.valueBeforeEdit;
+        this.abstractControl.setValue(toSet, { emitEvent: false })
       }
     }
 

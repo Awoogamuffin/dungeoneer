@@ -49,12 +49,14 @@ export class DmFormDialogComponent extends DmFormComponent implements OnInit {
     if (toSubmit && this.dmDialog) {
       this.dmDialog.close(toSubmit);
     }
+
+    console.log('TO SUBMIT', toSubmit);
  
     return toSubmit;
   }
 
   checkSaveButtonClass() {
-    console.log('checking save button class', this.formGroup.valid);
+    console.log('checking save button class', this.formGroup.value);
     const saveClass: string = this.formGroup.valid ? 'mat-primary' : 'mat-warn';
     if (saveClass !== this.saveButtonClass) {
       console.log('setting save class', this.saveButtonClass, saveClass);

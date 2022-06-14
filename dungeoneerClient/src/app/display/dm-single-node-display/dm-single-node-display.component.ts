@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, Output } from '@angular/core';
 import { dungeoneerSchema } from 'dungeoneer-common';
 import { DmSetParams } from 'dungeoneer-common/dist/types/src/connection/connectionTypes';
-import { NodeType, Schema } from 'dungeoneer-common/dist/types/src/schema/schemaTypes';
+import { NodeType, NodeVar, Schema } from 'dungeoneer-common/dist/types/src/schema/schemaTypes';
 import { takeUntil } from 'rxjs';
 import { DmWebSocketService } from 'src/app/connection/dm-web-socket.service';
 import { DmUnsubscriberComponent } from 'src/app/core/dm-unsubscriber/dm-unsubscriber.component';
@@ -81,6 +81,32 @@ export class DmSingleNodeDisplayComponent extends DmUnsubscriberComponent implem
   getEdgeNodeType(key: string): string | undefined {
     let nodeType = dungeoneerSchema.nodeTypes[this.nodeType].nodeVars[key].nodeType;
     return nodeType;
+  }
+
+  getEdgeLabelVar(key: string): string {
+    const edgeType = this.getEdgeNodeType(key);
+    if (edgeType) {
+      const labelVar = dungeoneerSchema.nodeTypes[edgeType].labelVar || 'name';
+      return edgeType + '_' + labelVar;
+    }
+
+    return '';
+  }
+
+  getEdgeFacets(node: any, key: string): string {
+    let toReturn = '';
+
+    const varSchema: NodeVar = dungeoneerSchema.nodeTypes[this.nodeType].nodeVars[key];
+    if (varSchema.facets) {
+      for (const facet of varSchema.facets) {
+        // a bit hacky for now. I could formalise how facets are displayed, but for now I'm hacking it
+        if (facet.name === 'amount') {
+          toReturn += ` x${node[this.nodeType + '_' + key + '|' + facet.name]}`;
+        }
+      }
+    }
+
+    return toReturn;
   }
 
   getKeyType(key: string): string {
