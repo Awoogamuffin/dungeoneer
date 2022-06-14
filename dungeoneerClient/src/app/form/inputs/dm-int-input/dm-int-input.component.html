@@ -1,6 +1,6 @@
-<mat-form-field>
+<mat-form-field [floatLabel]="this.floatLabel || 'auto'">
     <mat-label>{{ label }}</mat-label>
-    <input matInput dmIntInputDirective [required]="abstractControl.hasError('required')" [formControl]="this.getFormControl()" type="text" inputmode="numeric">
+    <input matInput dmIntInputDirective  [required]="abstractControl.hasError('required')" [formControl]="this.getFormControl()" type="text" inputmode="numeric">
     <mat-error *ngIf="abstractControl.hasError('required')">
         Value is required
     </mat-error>

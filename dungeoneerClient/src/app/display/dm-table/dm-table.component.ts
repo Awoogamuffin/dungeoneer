@@ -101,6 +101,11 @@ export class DmTableComponent extends DmUnsubscriberComponent implements OnInit 
       this.dataProvider = new DmDatabaseProvider(this.dmData);
     }
 
+    console.log('on table init', this.selected);
+    if (this.selected) {
+      
+    }
+
     if (!this.selection) {
       this.selection = {
         uids: {},
@@ -128,6 +133,9 @@ export class DmTableComponent extends DmUnsubscriberComponent implements OnInit 
         delete this.selection.uids[row.uid];
       } else {
         this.selection.uids[row.uid] = row;
+        if (this.selection.onAdd) {
+          this.selection.onAdd(row);
+        }
       }
 
 

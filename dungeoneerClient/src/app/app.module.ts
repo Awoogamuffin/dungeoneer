@@ -15,6 +15,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -32,6 +33,12 @@ import { DmLabelPipe } from './pipes/dm-label.pipe';
 import { DmSafeHTMLPipe } from './pipes/dm-safe-html.pipe';
 import { DmIntInputComponent } from './form/inputs/dm-int-input/dm-int-input.component';
 import { DmIntInputDirectiveDirective } from './form/inputs/dm-int-input/dm-int-input-directive.directive';
+
+import { MatTabsModule } from '@angular/material/tabs';
+import { DmTableInputComponent } from './form/inputs/dm-table-input/dm-table-input.component';
+import { DmSearchCardComponent } from './display/dm-search-card/dm-search-card.component';
+import { DmCharacterSheetComponent } from './routes/dm-character-sheet/dm-character-sheet.component';
+import { DmMainComponent } from './routes/dm-main/dm-main.component';
 
 
 
@@ -53,7 +60,11 @@ import { DmIntInputDirectiveDirective } from './form/inputs/dm-int-input/dm-int-
     DmLabelPipe,
     DmSafeHTMLPipe,
     DmIntInputComponent,
-    DmIntInputDirectiveDirective
+    DmIntInputDirectiveDirective,
+    DmTableInputComponent,
+    DmSearchCardComponent,
+    DmCharacterSheetComponent,
+    DmMainComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +79,9 @@ import { DmIntInputDirectiveDirective } from './form/inputs/dm-int-input/dm-int-
     MatTableModule,
     MatPaginatorModule,
     MatCheckboxModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTabsModule,
+    OverlayModule
   ],
   providers: [DmDialogComponent],
   bootstrap: [AppComponent]

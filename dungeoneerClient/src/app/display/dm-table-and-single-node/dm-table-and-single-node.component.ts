@@ -13,6 +13,7 @@ import { DmWebSocketService } from 'src/app/connection/dm-web-socket.service';
 import { nanoid } from 'nanoid';
 import { DmFetchParams, DmResponse, DmSetParams } from 'dungeoneer-common/dist/types/src/connection/connectionTypes';
 import { DmDataStoreService } from 'src/app/data/dm-data-store.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'dm-table-and-single-node',
@@ -31,17 +32,14 @@ export class DmTableAndSingleNodeComponent extends DmUnsubscriberComponent imple
   @Input()
   nodeType!: string;
 
-  // this form group is generated from the search values of the node type (if there are any). When it changed, the result are passed to the search subject
-  searchFormGroup!: FormGroup;
-  searchInputs: DmFormInputData[] = [];
-
+  @Input()
+  singleNodeRequestName!: string;
   // search subject is passed into the table to prompt it to fetch data based on changes in the search from group.
   searchSubject: Subject<any> = new Subject();
 
   // specifically the schema for this node type. Extracted from main schema
   nodeSchema!: NodeType;
 
-  singleNodeRequestName!: string;
   singleNodeValue?: any;
 
   // when double clicking on the table, we set the row to edit. First we check that the singleNode full search has been completed
@@ -49,6 +47,7 @@ export class DmTableAndSingleNodeComponent extends DmUnsubscriberComponent imple
 
   constructor(private dialog: DmDialogService,
     private dmWebsocket: DmWebSocketService,
+    private router: Router,
     private dmDataStore: DmDataStoreService) {
     super();
   }
@@ -60,9 +59,13 @@ export class DmTableAndSingleNodeComponent extends DmUnsubscriberComponent imple
       return;
     }
 
+    console.log('node type is', this.nodeType)
 
-    this.singleNodeRequestName = `${this.nodeType}_singleNode_${nanoid()}`
-
+    if (!this.singleNodeRequestName) {
+      this.singleNodeRequestName = `${this.nodeType}_singleNode_${nanoid()}`
+    }
+    
+    console.log('single node request name is', this.singleNodeRequestName);
     this.nodeSchema = dungeoneerSchema.nodeTypes[this.nodeType];
 
     if (!this.nodeSchema) {
@@ -74,39 +77,6 @@ export class DmTableAndSingleNodeComponent extends DmUnsubscriberComponent imple
       this.singleNodeValue = data?.data[0];
       this.checkDblClickEdit();
     });
-
-    if (this.nodeSchema.search) {
-
-      const searchControls: any = {};
-      for (const varName of this.nodeSchema.search) {
-        const varSchema: NodeVar = this.nodeSchema.nodeVars[varName];
-
-        // in the future this kind of check shouldn't really be necessary. I want to write a test suite for schemas to check for this kind of thing.
-        if (!varSchema) {
-          console.warn('no varschema for', varName);
-        }
-        switch(varSchema.type) {
-          case 'string':
-            const control: AbstractControl = new FormControl();
-            searchControls[varName] = control;
-            this.searchInputs.push({
-              key: varName,
-              type: 'string',
-              label: varSchema.label || varName,
-              abstractControl: control
-            });
-            break;
-        }
-      }
-
-      if (Object.keys(searchControls).length > 0) {
-        this.searchFormGroup = new FormGroup(searchControls);
-
-        this.searchFormGroup.valueChanges.pipe(takeUntil(this.unsubscribeAll)).subscribe((data) => {
-          this.searchSubject.next(data);
-        });
-      }
-    }
   }
 
   onRowSelected(rows: any[]) {

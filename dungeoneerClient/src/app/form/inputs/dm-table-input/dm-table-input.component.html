@@ -1,0 +1,37 @@
+<div class="selectorButton" (click)="onLabelClick()" cdkOverlayOrigin #trigger="cdkOverlayOrigin"><b>{{ label }}:</b> {{ valueDisplay }}</div>
+    <!-- This template displays the overlay content and is connected to the button -->
+    <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="shown">
+    <div class="overlay">
+        <button class="clearButton" style="margin-bottom: -20px; margin-top: -10px; margin-right: -10px; float: right" mat-icon-button aria-label="Close" (click)="onClose()">
+            <mat-icon style="font-size: inherit; height:unset; width: unset">close</mat-icon>
+        </button>
+        <div style="display: flex; width: 100%; flex-wrap: warp; overflow: auto;">
+            <div style="flex: 1; min-width: 330px; margin-right: 10px">
+                <dm-search-card [nodeType]="this.edgeType" [searchSubject]="this.searchSubject"></dm-search-card>
+                <dm-table [nodeType]="this.edgeType" [searchSubject]="this.searchSubject" (selectedRows)="onRowChange($event)" [selection]="this.selection" [selected]="this.abstractControl.value" [multiSelect]="this.mode === 'multi'"></dm-table>
+            </div>
+
+            <!-- for 'multi' type tables a list of selected items appears here. It can be searched, and if any facets are on the link, they are set here-->
+            <div *ngIf="this.mode === 'multi'" style="flex: 1; padding: 5px; max-height: 300px; overflow: auto;">
+                <dm-string-input [abstractControl]="this.selectedSearchFC" [label]="'Search'"></dm-string-input>
+                <div style="display: flex; flex-direction: column;">
+                    <div *ngFor="let selectedItem of this.filteredSelected" class="selectedItem">
+                        <div style="flex: 1;">{{ selectedItem[this.edgeType + '_' + this.labelVar] }}</div>
+                        <ng-container *ngIf="this.edgeFacets && this.parentNodeType">
+                            <div *ngFor="let facet of this.edgeFacets">
+                                <ng-container [ngSwitch]="facet.type">
+                                    <div style="flex: 1" *ngSwitchCase="'int'">
+                                        <dm-int-input [floatLabel]="'never'" (ngModelChange)="onRowChange(selected)" [label]="facet.name" [(ngModel)]="selectedItem[this.parentNodeType + '_' + this.inputData.key + '|' + facet.name]"></dm-int-input>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+                        <button class="clearButton" mat-icon-button aria-label="Clear" (click)="this.selection.toggle(selectedItem)">
+                            <mat-icon style="font-size: inherit; height:unset; width: unset">close</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

@@ -14,6 +14,7 @@ export class DmDgraphClient implements DmDatabaseClient {
 
     constructor(private schema: Schema) {
         this.initialise();
+        
     }
 
     async initialise() {
@@ -35,7 +36,7 @@ export class DmDgraphClient implements DmDatabaseClient {
 
                 // fetch settings (and also check connection is working). Will return error if connection is no good
                 await this.getSettings();
-                // load the schema. Also might throws errors
+                // load the schema. Also might throw errors
                 await this.loadSchema(this.schema);
 
                 // if we got through all that without errors, the database is now ready to go!

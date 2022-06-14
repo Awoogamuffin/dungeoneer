@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 import { DmUnsubscriberComponent } from 'src/app/core/dm-unsubscriber/dm-unsubscriber.component';
 import { DmFormInputData } from '../DmFormInputData';
+import { getFormChangedValues } from '../DmFormUtils';
 
 @Component({
   selector: 'dm-form',
@@ -38,11 +39,13 @@ export class DmFormComponent extends DmUnsubscriberComponent implements OnInit {
     const controls: any = {};
 
     for (const input of this.inputs) {
+      console.log('input value before edit!', input.valueBeforeEdit);
       if (input.valueBeforeEdit === undefined) {
         input.valueBeforeEdit = null;
       }
       controls[input.key] = input.abstractControl;
       if (this.valuesBeforeEdit && this.valuesBeforeEdit[input.key]) {
+        console.log('assigning from this.valuesBeforeEdit');
         input.valueBeforeEdit = this.valuesBeforeEdit[input.key];
       }
     }
@@ -64,16 +67,11 @@ export class DmFormComponent extends DmUnsubscriberComponent implements OnInit {
     }
 
     if (this.onlySubmitChanges) {
-      const toSubmit: any = {};
-      for (const input of this.inputs.filter(input => input.valueBeforeEdit !== input.abstractControl.value)) {
-        toSubmit[input.key] = input.abstractControl.value;
-      }
-      return toSubmit;
+      return getFormChangedValues(this.inputs);
     }
 
     // I think all forms will only submit changes, but if at some point we want to submit everything, do that here
     return null;
-    
   }
 
   markAllAsTouchedAndUpdateValidity() {

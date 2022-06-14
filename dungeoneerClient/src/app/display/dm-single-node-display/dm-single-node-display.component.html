@@ -4,6 +4,13 @@
         <div *ngFor="let key of this.itemKeys" style="display: flex">
             <div style="padding-top: 3px; margin-right: 5px; flex-grow: 0; min-width: 25%; text-align: right; font-weight: bold; overflow: hidden;">{{ key | dmLabel:schema:nodeType }}:</div>
             <ng-container [ngSwitch]="this.getKeyType(key)">
+                <div *ngSwitchCase="'node[]'">
+                    <ul>
+                        <li *ngFor="let node of itemData[this.nodeType + '_' + key]">
+                        {{ node[this.getEdgeLabelVar(key)] }} {{ this.getEdgeFacets(node, key) }}
+                        </li>
+                    </ul>
+                </div>
                 <!-- this will get expanded as new types are incorporated-->
                 <div *ngSwitchDefault class="dataDisplay" [innerHTML]="key | dmValue:itemData:schema:nodeType:itemData | dmSafeHTML"></div>
             </ng-container>

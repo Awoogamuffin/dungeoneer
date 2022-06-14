@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { DmWebSocketService } from './connection/dm-web-socket.service';
 import { DmDataStoreService } from './data/dm-data-store.service';
 import { DmDialogService } from './display/dialog/dm-dialog.service';
@@ -12,7 +13,6 @@ import { DmFormInputData } from './form/DmFormInputData';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'dungeoneerClient';
 
   constructor(private dataStore: DmDataStoreService,
     private websocket: DmWebSocketService,

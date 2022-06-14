@@ -83,3 +83,10 @@
       [key: string]: any
     }
   }
+
+  // this is for child[] and node[] data types.
+  export interface DmLinkSetParams {
+    toDelete: any[]
+    toModify: any[]
+    toAdd: any[]
+  }

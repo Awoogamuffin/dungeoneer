@@ -1,7 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, ViewContainerRef } from '@angular/core';
+import { DmTableComponent } from 'src/app/display/dm-table/dm-table.component';
 import { DmFormInputData } from '../DmFormInputData';
 import { DmIntInputComponent } from '../inputs/dm-int-input/dm-int-input.component';
 import { DmStringInputComponent } from '../inputs/dm-string-input/dm-string-input.component';
+import { DmTableInputComponent } from '../inputs/dm-table-input/dm-table-input.component';
 
 @Component({
   selector: 'dm-input',
@@ -29,6 +31,10 @@ export class DmInputComponent implements OnInit {
 
       case 'int':
         this.viewContainerRef.createComponent(DmIntInputComponent).instance.inputData = this.inputData;
+        break;
+
+      case 'node[]':
+        this.viewContainerRef.createComponent(DmTableInputComponent).instance.inputData = this.inputData;
         break;
 
       default:
