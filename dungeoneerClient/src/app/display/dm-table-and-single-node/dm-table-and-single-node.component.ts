@@ -124,7 +124,9 @@ export class DmTableAndSingleNodeComponent extends DmUnsubscriberComponent imple
   checkDblClickEdit() {
     if (this.toEdit && this.singleNodeValue && this.toEdit.uid === this.singleNodeValue.uid) {
       this.toEdit = null;
-      this.onEdit(this.singleNodeValue);
+      this.onEdit({
+        initialData: this.singleNodeValue
+      });
     }
   }
 

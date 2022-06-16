@@ -130,6 +130,10 @@ export function  generateQuery(params: DmFetchParams, schema: Schema): string {
 
     query += "}";
 
+    if (params.filterOverride) {
+        console.log(query);
+    }
+
     return query;
 }
     
@@ -256,22 +260,27 @@ function getFilters(filterVars: string[], schema: Schema, params: DmFetchParams,
                 if (value === '') {
                     continue;
                 }
-                let overriden = false
                 if (params.filterOverride) {
                     const override = params.filterOverride[filterVar];
                     if (override) {
-                        if (override === 'eq') {
-                            overriden = true
-                            filters.push(`eq(${nodeType + '_' + filterVar}, "${value}")`);
+                        switch(override) {
+                            case 'eq':
+                                filters.push(`eq(${nodeType + '_' + filterVar}, "${value}")`);
+                                break;
+
+                            // case insensitive search uses regex instead on the _search string, adding the leading ampersands
+                            case 'eq/i':
+                                filters.push(`regexp(${nodeType+"_"+filterVar}_search, /^&&${value}$/i)`);
+                                break;
                         }
+
+                        break;
                     }
                 }
-                if (!overriden) {
-                    while (value.length < 3) {
-                        value = '&' + value;
-                    }
-                    filters.push(`regexp(${nodeType+"_"+filterVar}_search, /${value}/i)`);
+                while (value.length < 3) {
+                    value = '&' + value;
                 }
+                filters.push(`regexp(${nodeType+"_"+filterVar}_search, /${value}/i)`);
                 break;
 
             case "date":

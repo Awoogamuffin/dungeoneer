@@ -1,6 +1,7 @@
-import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from "@angular/forms";
+import { AbstractControl, AsyncValidator, FormControl, FormGroup, ValidatorFn, Validators } from "@angular/forms";
 import { DmLinkSetParams } from "dungeoneer-common/dist/types/src/connection/connectionTypes";
 import { NodeType, NodeVar, Schema } from "dungeoneer-common/dist/types/src/schema/schemaTypes";
+import { DmUniqueValidator } from "../validation/DmUniqueValidator";
 import { DmFormInputData, DmTableInputConfig } from "./DmFormInputData";
 
 export function generateInputsFromSchema(schema: Schema, nodeType: string, initialData?: any, columns?: 'search' | string[]): DmFormInputData[] {
@@ -118,12 +119,19 @@ function getFormInputData(nodeSchema: NodeType, nodeType: string, varName: strin
 
     if (varSchema.validation && withValidation) {
         const validators: ValidatorFn[] = [];
+        const asyncValidators: any[] = []
 
         if (varSchema.validation.required) {
             validators.push(Validators.required);
         }
 
+        if (varSchema.validation.unique) {
+          asyncValidators.push(new DmUniqueValidator(nodeType, varName, initialData));
+        }
+
         abstractControl.addValidators(validators);
+
+        abstractControl.addAsyncValidators(asyncValidators);
     }
 
     const formInputData: DmFormInputData = {

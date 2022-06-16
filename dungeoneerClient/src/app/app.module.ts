@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -40,7 +40,7 @@ import { DmSearchCardComponent } from './display/dm-search-card/dm-search-card.c
 import { DmCharacterSheetComponent } from './routes/dm-character-sheet/dm-character-sheet.component';
 import { DmMainComponent } from './routes/dm-main/dm-main.component';
 
-
+export let AppInjector: Injector;
 
 @NgModule({
   declarations: [
@@ -86,4 +86,8 @@ import { DmMainComponent } from './routes/dm-main/dm-main.component';
   providers: [DmDialogComponent],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private injector: Injector) {
+    AppInjector = this.injector;
+  }
+}
