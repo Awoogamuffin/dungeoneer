@@ -1,3 +1,5 @@
+@use 'src/app/dm-scss-variables.scss' as v;
+
 .dataDisplay {
     height: 100%;
     flex: 1;
@@ -9,4 +11,12 @@
 ul {
     padding: 3px 20px;
     margin: 0px;
+}
+
+.editLabel {
+    cursor: pointer;
+
+    &:hover {
+        color: v.$selected;
+    }
 }

@@ -47,7 +47,7 @@ export class DmSearchCardComponent extends DmUnsubscriberComponent implements On
       throw new Error('no nodeType provided for search card');
     }
 
-    this.searchInputs = generateInputsFromSchema(this.schema, this.nodeType, this.initialData, true);
+    this.searchInputs = generateInputsFromSchema(this.schema, this.nodeType, this.initialData, 'search');
     this.searchFormGroup = getFormGroupFromInputData(this.searchInputs);
 
     this.searchFormGroup.valueChanges.pipe(takeUntil(this.unsubscribeAll)).subscribe((data) => {
