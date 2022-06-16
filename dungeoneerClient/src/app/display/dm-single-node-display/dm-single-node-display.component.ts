@@ -30,7 +30,7 @@ export class DmSingleNodeDisplayComponent extends DmUnsubscriberComponent implem
   schema: Schema = dungeoneerSchema;
 
   @Output()
-  edit: EventEmitter<any> = new EventEmitter();
+  edit: EventEmitter<editEventObject> = new EventEmitter();
 
   constructor(private dmDataStore: DmDataStoreService,
     private dialog: DmDialogService,
@@ -115,6 +115,23 @@ export class DmSingleNodeDisplayComponent extends DmUnsubscriberComponent implem
   }
 
   onEdit() {
-    this.edit.emit(this.itemData);
+    this.edit.emit({
+      initialData: this.itemData
+    });
   }
+
+  onValueEdit(key: string) {
+    this.edit.emit({
+      initialData: {
+        uid: this.itemData.uid,
+        [this.nodeType + '_' + key]: this.itemData[this.nodeType + '_' + key]
+      },
+      columns: [key]
+    });
+  }
+}
+
+export interface editEventObject {
+  initialData?: any,
+  columns?: string[]
 }

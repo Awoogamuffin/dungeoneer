@@ -1,4 +1,4 @@
-@use '../../../dm-scss-variables.scss' as v;
+@use 'src/app/dm-scss-variables.scss' as v;
 
 .selectorButton {
     padding: 10px;
@@ -33,6 +33,6 @@
     max-height: 23px;
 
     &:hover {
-        background-color: v.$background-color;
+        background-color: v.$selected;
     }
 }

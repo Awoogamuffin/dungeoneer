@@ -3,24 +3,28 @@ import { DmLinkSetParams } from "dungeoneer-common/dist/types/src/connection/con
 import { NodeType, NodeVar, Schema } from "dungeoneer-common/dist/types/src/schema/schemaTypes";
 import { DmFormInputData, DmTableInputConfig } from "./DmFormInputData";
 
-export function generateInputsFromSchema(schema: Schema, nodeType: string, initialData?: any, forSearch?: boolean): DmFormInputData[] {
+export function generateInputsFromSchema(schema: Schema, nodeType: string, initialData?: any, columns?: 'search' | string[]): DmFormInputData[] {
     if (!schema.nodeTypes[nodeType]) {
         throw new Error(`Schema doesn't contain nodetype ${nodeType}`);
     }
 
     const nodeSchema: NodeType = schema.nodeTypes[nodeType];
     
-    const inputNameArray = forSearch ? nodeSchema.search : nodeSchema.edit;
+    let inputNameArray = nodeSchema.edit;
+
+    if (columns) {
+        inputNameArray = columns === 'search' ? nodeSchema.search : columns;
+    }
 
     if (!inputNameArray) {
-        throw new Error(`Node type ${nodeType} does not have an ${forSearch ? 'search' : 'edit'} value saved`);
+        throw new Error(`Unable to derive input name array. Columns value was ${columns}`);
     }
 
     const toReturn: DmFormInputData[] = [];
 
     for (const varName of inputNameArray) {
 
-        const toPush: DmFormInputData = getFormInputData(nodeSchema, nodeType, varName, !forSearch, initialData);
+        const toPush: DmFormInputData = getFormInputData(nodeSchema, nodeType, varName, !(columns === 'search'), initialData);
 
         toReturn.push(toPush);
     }

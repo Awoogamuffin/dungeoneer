@@ -14,6 +14,7 @@ import { nanoid } from 'nanoid';
 import { DmFetchParams, DmResponse, DmSetParams } from 'dungeoneer-common/dist/types/src/connection/connectionTypes';
 import { DmDataStoreService } from 'src/app/data/dm-data-store.service';
 import { Router } from '@angular/router';
+import { editEventObject } from '../dm-single-node-display/dm-single-node-display.component';
 
 @Component({
   selector: 'dm-table-and-single-node',
@@ -136,9 +137,10 @@ export class DmTableAndSingleNodeComponent extends DmUnsubscriberComponent imple
     }
   }
 
-  onEdit(data: any) {
-    console.log('ON EDIT!', data);
-    const inputs: DmFormInputData[] = generateInputsFromSchema(dungeoneerSchema, this.nodeType, data);
+  onEdit(editEventObject: editEventObject) {
+    const data: any = editEventObject.initialData;
+    console.log('ON EDIT!', editEventObject);
+    const inputs: DmFormInputData[] = generateInputsFromSchema(dungeoneerSchema, this.nodeType, data, editEventObject.columns);
 
     this.dialog.openDialog({
       componentType: DmFormDialogComponent,

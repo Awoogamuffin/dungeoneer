@@ -2,7 +2,7 @@
     <button mat-raised-button (click)="onEdit()">Edit</button>
     <div style="display: flex; flex-direction: column; width: 90%">
         <div *ngFor="let key of this.itemKeys" style="display: flex">
-            <div style="padding-top: 3px; margin-right: 5px; flex-grow: 0; min-width: 25%; text-align: right; font-weight: bold; overflow: hidden;">{{ key | dmLabel:schema:nodeType }}:</div>
+            <div class="editLabel" (click)="onValueEdit(key)" style="padding-top: 3px; margin-right: 5px; flex-grow: 0; min-width: 25%; text-align: right; font-weight: bold; overflow: hidden;">{{ key | dmLabel:schema:nodeType }}:</div>
             <ng-container [ngSwitch]="this.getKeyType(key)">
                 <div *ngSwitchCase="'node[]'">
                     <ul>
