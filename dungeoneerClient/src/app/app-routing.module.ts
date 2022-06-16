@@ -5,7 +5,7 @@ import { DmMainComponent } from './routes/dm-main/dm-main.component';
 
 const routes: Routes = [
   { path: '', component: DmMainComponent },
-  { path: 'characterSheet', component: DmCharacterSheetComponent }
+  { path: 'characterSheet/:uid', component: DmCharacterSheetComponent }
 ];
 
 @NgModule({

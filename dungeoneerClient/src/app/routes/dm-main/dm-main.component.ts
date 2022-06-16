@@ -25,7 +25,7 @@ export class DmMainComponent implements OnInit {
   }
 
   onViewCharacterSheet() {
-    this.router.navigate(['characterSheet'])
+    this.router.navigate(['characterSheet', this.currentCharacter.uid])
   }
 
 }
