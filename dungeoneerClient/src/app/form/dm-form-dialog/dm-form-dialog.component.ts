@@ -16,6 +16,7 @@ export class DmFormDialogComponent extends DmFormComponent implements OnInit {
   dmDialog?: DmDialogComponent;
 
   saveButtonClass: string = 'mat-primary';
+  formValid: boolean = false;
 
   constructor() {
     super();
@@ -24,15 +25,11 @@ export class DmFormDialogComponent extends DmFormComponent implements OnInit {
   override ngOnInit(): void {
     super.ngOnInit();
 
-    this.formGroup.valueChanges.pipe(distinctUntilChanged((a: any, b: any) => {
-      return JSON.stringify(a) === JSON.stringify(b)
-    }),takeUntil(this.unsubscribeAll)).subscribe((data) => {
+    this.formGroup.statusChanges.pipe(distinctUntilChanged(),takeUntil(this.unsubscribeAll)).subscribe((data) => {
       this.checkSaveButtonClass();
     });
 
-    setTimeout(() => {
-      this.checkSaveButtonClass();
-    });
+    this.checkSaveButtonClass();
     
   }
 
@@ -56,13 +53,15 @@ export class DmFormDialogComponent extends DmFormComponent implements OnInit {
   }
 
   checkSaveButtonClass() {
-    console.log('checking save button class', this.formGroup.value);
-    const saveClass: string = this.formGroup.valid ? 'mat-primary' : 'mat-warn';
-    if (saveClass !== this.saveButtonClass) {
-      console.log('setting save class', this.saveButtonClass, saveClass);
-      this.saveButtonClass = saveClass;
-      //this.changeDetectorRef.detectChanges();
-    }
+    setTimeout(() => {
+      console.log('checking save button class', this.formGroup.valid, this.formGroup.value, this.formGroup);
+      const saveClass: string = this.formGroup.valid ? 'mat-primary' : 'mat-warn';
+      if (saveClass !== this.saveButtonClass) {
+        console.log('setting save class to', saveClass);
+        this.saveButtonClass = saveClass;
+        //this.changeDetectorRef.detectChanges();
+      }
+    });
   }
 
 }

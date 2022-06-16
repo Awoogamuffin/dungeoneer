@@ -6,7 +6,8 @@ export const dungeoneerSchema: Schema = {
                 name: {
                     type: 'string',
                     validation: {
-                        required: true
+                        required: true,
+                        unique: true
                     }
                 },
                 weight: {
