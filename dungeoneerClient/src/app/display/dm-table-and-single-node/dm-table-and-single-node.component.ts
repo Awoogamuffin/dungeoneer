@@ -1,20 +1,14 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
-import { Subject, takeUntil } from 'rxjs';
-import { dungeoneerSchema } from "dungeoneer-common";
-import { NodeType, NodeVar } from 'dungeoneer-common/dist/types/src/schema/schemaTypes';
-import { DmFormInputData } from 'src/app/form/DmFormInputData';
-import { DmUnsubscriberComponent } from 'src/app/core/dm-unsubscriber/dm-unsubscriber.component';
-import { generateInputsFromSchema } from 'src/app/form/DmFormUtils';
-import { DmDialogService } from '../dialog/dm-dialog.service';
-import { DmFormDialogComponent } from 'src/app/form/dm-form-dialog/dm-form-dialog.component';
-import { MatDialogRef } from '@angular/material/dialog';
-import { DmWebSocketService } from 'src/app/connection/dm-web-socket.service';
-import { nanoid } from 'nanoid';
-import { DmFetchParams, DmResponse, DmSetParams } from 'dungeoneer-common/dist/types/src/connection/connectionTypes';
-import { DmDataStoreService } from 'src/app/data/dm-data-store.service';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { editEventObject } from '../dm-single-node-display/dm-single-node-display.component';
+import { dungeoneerSchema } from "dungeoneer-common";
+import { DmFetchParams } from 'dungeoneer-common/dist/types/src/connection/connectionTypes';
+import { NodeType } from 'dungeoneer-common/dist/types/src/schema/schemaTypes';
+import { nanoid } from 'nanoid';
+import { Subject, takeUntil } from 'rxjs';
+import { DmUnsubscriberComponent } from 'src/app/core/dm-unsubscriber/dm-unsubscriber.component';
+import { DmDataStoreService } from 'src/app/data/dm-data-store.service';
+import { EditEventObject } from 'src/app/form/dm-form-edit/dm-edit-event.model';
+import { DmFormEditService } from 'src/app/form/dm-form-edit/dm-form-edit.service';
 
 @Component({
   selector: 'dm-table-and-single-node',
@@ -46,8 +40,7 @@ export class DmTableAndSingleNodeComponent extends DmUnsubscriberComponent imple
   // when double clicking on the table, we set the row to edit. First we check that the singleNode full search has been completed
   toEdit: any;
 
-  constructor(private dialog: DmDialogService,
-    private dmWebsocket: DmWebSocketService,
+  constructor(private formEditService: DmFormEditService,
     private router: Router,
     private dmDataStore: DmDataStoreService) {
     super();
@@ -94,31 +87,7 @@ export class DmTableAndSingleNodeComponent extends DmUnsubscriberComponent imple
   }
 
   onAdd() {
-    const inputs: DmFormInputData[] = generateInputsFromSchema(dungeoneerSchema, this.nodeType);
-
-    this.dialog.openDialog({
-      componentType: DmFormDialogComponent,
-      componentData: {
-        inputs: inputs
-      }
-    }).pipe(takeUntil(this.unsubscribeAll)).subscribe((toSet) => {
-
-      if (!(toSet && Object.keys(toSet).length > 0)) {
-        return;
-      }
-      console.log('TO SET ADD', toSet);
-      const setParams: DmSetParams = {
-        nodeType: this.nodeType,
-        values: toSet
-      };
-
-      this.dmWebsocket.sendRequest({
-        method: 'set',
-        params: {
-          set: setParams
-        }
-      });
-    })
+    this.formEditService.addEvent(dungeoneerSchema, this.nodeType);
   }
 
   checkDblClickEdit() {
@@ -139,38 +108,8 @@ export class DmTableAndSingleNodeComponent extends DmUnsubscriberComponent imple
     }
   }
 
-  onEdit(editEventObject: editEventObject) {
-    const data: any = editEventObject.initialData;
-    console.log('ON EDIT!', editEventObject);
-    const inputs: DmFormInputData[] = generateInputsFromSchema(dungeoneerSchema, this.nodeType, data, editEventObject.columns);
-
-    this.dialog.openDialog({
-      componentType: DmFormDialogComponent,
-      componentData: {
-        inputs: inputs
-      }
-    }).pipe(takeUntil(this.unsubscribeAll)).subscribe((toSet) => {
-
-      if (!(toSet && Object.keys(toSet).length > 0)) {
-        return;
-      }
-
-      console.log('TO SET EDIT', toSet);
-      const setParams: DmSetParams = {
-        nodeType: this.nodeType,
-        values: {
-          ...toSet,
-          uid: data.uid
-        }
-      };
-
-      this.dmWebsocket.sendRequest({
-        method: 'set',
-        params: {
-          set: setParams
-        }
-      });
-    })
+  onEdit(editEventObject: EditEventObject) {
+    this.formEditService.editEvent(dungeoneerSchema, this.nodeType, editEventObject);
   }
 
 }

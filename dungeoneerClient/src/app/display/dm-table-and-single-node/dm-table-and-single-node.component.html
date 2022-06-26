@@ -2,9 +2,11 @@
     <div class="halfContainer">
         <button mat-raised-button (click)="onAdd()">Add</button>
         <dm-search-card [nodeType]="this.nodeType" [searchSubject]="this.searchSubject"></dm-search-card>
-        <dm-table [nodeType]="this.nodeType" (dblClick)="onDblClick($event)" [searchSubject]="this.searchSubject" (selectedRows)="onRowSelected($event)"></dm-table>
+        <dm-table [nodeType]="this.nodeType" (dblClick)="onDblClick($event)" [searchSubject]="this.searchSubject"
+            (selectedRows)="onRowSelected($event)"></dm-table>
     </div>
     <div class="halfContainer">
-        <dm-single-node-display [nodeType]="this.nodeType" (edit)="onEdit($event)" [requestName]="this.singleNodeRequestName"></dm-single-node-display>
+        <dm-single-node-display [nodeType]="this.nodeType" (edit)="onEdit($event)"
+            [requestName]="this.singleNodeRequestName"></dm-single-node-display>
     </div>
 </div>

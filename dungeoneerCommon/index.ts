@@ -29,8 +29,96 @@ export const dungeoneerSchema: Schema = {
                         required: true
                     } 
                 } ,
-                constitution: {
-                    type: 'int'
+                class: {
+                    type: 'string',
+                    label: 'Class',
+                    validation: {
+                        required: true
+                    } 
+                },
+                level: {
+                    type: 'int',
+                    label: 'Level',
+                    validation: {
+                        required: true
+                    } 
+                },
+                race: {
+                    type: 'string',
+                    label: 'Race',
+                    validation: {
+                        required: true
+                    } 
+                },
+                background: {
+                    type: 'string',
+                    label: 'Background',
+                    validation: {
+                        required: true
+                    } 
+                },
+                alignment: {
+                    type: 'string',
+                    label: 'Alignment',
+                    validation: {
+                        required: true
+                    } 
+                },
+                experience: {
+                    type: 'int',
+                    label: 'Experience',
+                    validation: {
+                        required: true
+                    } 
+                },
+                inspiration: {
+                    type: 'int',
+                    label: 'Inspiration',
+                    validation: {
+                        required: true
+                    } 
+                },
+                abilityStrength: {
+                    type: 'int',
+                    label: 'Strength',
+                    validation: {
+                        required: true
+                    }
+                },
+                abilityDexterity: {
+                    type: 'int',
+                    label: 'Dexterity',
+                    validation: {
+                        required: true
+                    }
+                },
+                abilityConstitution: {
+                    type: 'int',
+                    label: 'Constitution',
+                    validation: {
+                        required: true
+                    }
+                },
+                abilityIntelligence: {
+                    type: 'int',
+                    label: 'Intelligence',
+                    validation: {
+                        required: true
+                    }
+                },
+                abilityWisdom: {
+                    type: 'int',
+                    label: 'Wisdom',
+                    validation: {
+                        required: true
+                    }
+                },
+                abilityCharisma: {
+                    type: 'int',
+                    label: 'Charisma',
+                    validation: {
+                        required: true
+                    }
                 },
                 items: {
                     type: 'node[]',
@@ -47,7 +135,7 @@ export const dungeoneerSchema: Schema = {
 
             search: ['name'],
             columns: ['name'],
-            edit: ['name', 'constitution', 'items'],
+            edit: ['name', 'class', 'level', 'race', 'items', 'abilityStrength'],
 
             modalities: {
                 full: {
