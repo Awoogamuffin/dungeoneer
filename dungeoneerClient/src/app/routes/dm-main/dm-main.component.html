@@ -1,5 +1,11 @@
-<button mat-raised-button [disabled]="!(this.currentCharacter && this.currentCharacter.uid)" (click)="onViewCharacterSheet()">Character sheet</button>
+<button mat-raised-button [disabled]="!(this.currentCharacter && this.currentCharacter.uid)"
+    (click)="onViewCharacterSheet()">Character sheet</button>
 <mat-tab-group mat-align-tabs="start">
-    <mat-tab label="Characters"><dm-table-and-single-node [singleNodeRequestName]="'currentCharacter'" [nodeType]="'character'"></dm-table-and-single-node></mat-tab>
-    <mat-tab label="Items"><dm-table-and-single-node [nodeType]="'item'"></dm-table-and-single-node></mat-tab>
+    <mat-tab label="Characters">
+        <dm-table-and-single-node [singleNodeRequestName]="'currentCharacter'" [nodeType]="'character'">
+        </dm-table-and-single-node>
+    </mat-tab>
+    <mat-tab label="Items">
+        <dm-table-and-single-node [nodeType]="'item'"></dm-table-and-single-node>
+    </mat-tab>
 </mat-tab-group>

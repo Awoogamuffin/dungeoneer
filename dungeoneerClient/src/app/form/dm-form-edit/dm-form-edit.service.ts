@@ -7,7 +7,7 @@ import { DmUnsubscriberComponent } from 'src/app/core/dm-unsubscriber/dm-unsubsc
 import { DmDialogService } from 'src/app/display/dialog/dm-dialog.service';
 import { DmFormDialogComponent } from '../dm-form-dialog/dm-form-dialog.component';
 import { DmFormInputData } from '../DmFormInputData';
-import { generateInputsFromSchema } from '../DmFormUtils';
+import { DmFormUtils } from '../DmFormUtils';
 import { EditEventObject } from './dm-edit-event.model';
 
 @Injectable({
@@ -16,7 +16,8 @@ import { EditEventObject } from './dm-edit-event.model';
 export class DmFormEditService extends DmUnsubscriberComponent {
 
   constructor(private dmWebsocket: DmWebSocketService,
-    private dialog: DmDialogService) {
+    private dialog: DmDialogService,
+    private dmFormUtils: DmFormUtils) {
       super();    
   }
 
@@ -27,7 +28,7 @@ export class DmFormEditService extends DmUnsubscriberComponent {
    * @param nodeType 
    */
   public addEvent(dungeoneerSchema: Schema, nodeType: string): void {
-    const inputs: DmFormInputData[] = generateInputsFromSchema(dungeoneerSchema, nodeType);
+    const inputs: DmFormInputData[] = this.dmFormUtils.generateInputsFromSchema(dungeoneerSchema, nodeType);
 
     this.dialog.openDialog({
       componentType: DmFormDialogComponent,
@@ -64,7 +65,7 @@ export class DmFormEditService extends DmUnsubscriberComponent {
   public editEvent(dungeoneerSchema: Schema, nodeType: string, editEventObject: EditEventObject) {
     const data: any = editEventObject.initialData;
     console.log('ON EDIT!', editEventObject);
-    const inputs: DmFormInputData[] = generateInputsFromSchema(dungeoneerSchema, nodeType, data, editEventObject.columns);
+    const inputs: DmFormInputData[] = this.dmFormUtils.generateInputsFromSchema(dungeoneerSchema, nodeType, data, editEventObject.columns);
 
     this.dialog.openDialog({
       componentType: DmFormDialogComponent,

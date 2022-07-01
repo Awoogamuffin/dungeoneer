@@ -91,7 +91,7 @@ export let AppInjector: Injector;
     MatCardModule,
     OverlayModule
   ],
-  providers: [DmDialogComponent],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

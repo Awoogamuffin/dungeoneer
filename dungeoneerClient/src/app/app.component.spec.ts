@@ -1,6 +1,12 @@
+import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { DmWebSocketService } from './connection/dm-web-socket.service';
+
+@Injectable()
+class DmWebSocketServiceMock { 
+}
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -11,6 +17,9 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
+      providers: [
+        { provide: DmWebSocketService, useClass: DmWebSocketServiceMock }
+      ]
     }).compileComponents();
   });
 

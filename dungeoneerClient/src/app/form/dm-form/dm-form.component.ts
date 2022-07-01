@@ -1,8 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 import { DmUnsubscriberComponent } from 'src/app/core/dm-unsubscriber/dm-unsubscriber.component';
 import { DmFormInputData } from '../DmFormInputData';
-import { getFormChangedValues } from '../DmFormUtils';
+import { DmFormUtils } from '../DmFormUtils';
 
 @Component({
   selector: 'dm-form',
@@ -26,7 +26,7 @@ export class DmFormComponent extends DmUnsubscriberComponent implements OnInit {
 
   public formGroup!: FormGroup;
 
-  constructor() {
+  constructor(private dmFormUtils: DmFormUtils) {
     super();
   }
 
@@ -67,7 +67,7 @@ export class DmFormComponent extends DmUnsubscriberComponent implements OnInit {
     }
 
     if (this.onlySubmitChanges) {
-      return getFormChangedValues(this.inputs);
+      return this.dmFormUtils.getFormChangedValues(this.inputs);
     }
 
     // I think all forms will only submit changes, but if at some point we want to submit everything, do that here

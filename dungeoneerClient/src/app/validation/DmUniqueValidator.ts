@@ -1,7 +1,6 @@
 import { AbstractControl, AsyncValidator, ValidationErrors } from "@angular/forms";
 import { DmFetchParams, DmResponse } from "dungeoneer-common/dist/types/src/connection/connectionTypes";
 import { Observable } from "rxjs";
-import { AppInjector } from "../app.module";
 import { DmWebSocketService } from "../connection/dm-web-socket.service";
 
 export class DmUniqueValidator implements AsyncValidator {
@@ -15,11 +14,11 @@ export class DmUniqueValidator implements AsyncValidator {
     currentPromise!: Promise<ValidationErrors | null> | Observable<any | ValidationErrors | null>
     prevValue: any;
 
-    constructor(nodeType: string, key: string, inputData: any) {
+    constructor(private dmWebSocketService: DmWebSocketService, nodeType: string, key: string, inputData: any) {
         this.nodeType = nodeType;
         this.key = key;
 
-        this.dmWebSocketClient = AppInjector.get(DmWebSocketService);
+        this.dmWebSocketClient = dmWebSocketService;
 
         console.log('input data', inputData);
         // if we are editing, store the uid of the item we are editing.
