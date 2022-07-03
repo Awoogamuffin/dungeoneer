@@ -4,7 +4,13 @@
             {{ nodevarObj | dmLabel:schema:'character' }}:</div>
     </mat-card-title>
     <mat-card-content>
-        <div [innerHTML]="nodevarObj | dmValue:character:schema:'character':character | dmSafeHTML">
-        </div>
+        <ng-container *ngIf="!customContent;else customContentTemplate">
+            <div [innerHTML]="nodevarObj | dmValue:character:schema:'character':character | dmSafeHTML">
+            </div>
+        </ng-container>
     </mat-card-content>
 </mat-card>
+
+<ng-template #customContentTemplate>
+    <ng-content></ng-content>
+</ng-template>

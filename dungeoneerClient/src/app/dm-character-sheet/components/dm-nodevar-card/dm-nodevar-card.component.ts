@@ -13,6 +13,8 @@ export class DmNodevarCardComponent {
   @Input() nodevarObj!: any;
   @Input() character!: any;
 
+  @Input() customContent: boolean = false;
+
   @Output() edit: EventEmitter<string> = new EventEmitter<string>();
 
   schema: Schema = dungeoneerSchema;

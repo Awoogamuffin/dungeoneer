@@ -30,20 +30,14 @@
         <!-- Iterate character attributes: abilities -->
         <div *ngFor="let ability of abilities">
             <!-- Component: basic title + value editable input -->
-            <mat-card>
-                <mat-card-title>
-                    <div class="editLabel" (click)="onValueEdit(ability)">
-                        {{ ability | dmLabel:schema:'character' }}:</div>
-                </mat-card-title>
-                <mat-card-content>
-                    <div class="dataDisplay"
-                        [innerHTML]="ability | dmValue:character:schema:'character':character | dmSafeHTML">
-                    </div>
-                    <div class="dataDisplay">
-                        {{ability | dmValue:character:schema:'character':character | dmAbilityModifier}}
-                    </div>
-                </mat-card-content>
-            </mat-card>
+            <dm-nodevar-card [character]="character" [nodevarObj]="ability" (edit)="onValueEdit($event)"
+                [customContent]="true">
+                <div [innerHTML]="ability | dmValue:character:schema:'character':character | dmSafeHTML">
+                </div>
+                <div>
+                    {{ability | dmValue:character:schema:'character':character | dmAbilityModifier}}
+                </div>
+            </dm-nodevar-card>
         </div>
     </dm-character-section>
     <!-- Section: Passive Perception -->
