@@ -1,0 +1,10 @@
+<mat-card>
+    <mat-card-title>
+        <div (click)="onValueEdit(nodevarObj)" class="card-title">
+            {{ nodevarObj | dmLabel:schema:'character' }}:</div>
+    </mat-card-title>
+    <mat-card-content>
+        <div [innerHTML]="nodevarObj | dmValue:character:schema:'character':character | dmSafeHTML">
+        </div>
+    </mat-card-content>
+</mat-card>

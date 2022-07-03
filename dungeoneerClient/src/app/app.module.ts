@@ -34,12 +34,19 @@ import { DmLabelPipe } from './pipes/dm-label.pipe';
 import { DmSafeHTMLPipe } from './pipes/dm-safe-html.pipe';
 import { DmValuePipe } from './pipes/dm-value.pipe';
 
+import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
-import { DmCharacterInventoryComponent } from './character-sheet/dm-character-inventory/dm-character-inventory.component';
-import { DmCharacterMagicComponent } from './character-sheet/dm-character-magic/dm-character-magic.component';
-import { DmCharacterNotesComponent } from './character-sheet/dm-character-notes/dm-character-notes.component';
-import { DmCharacterStatisticsComponent } from './character-sheet/dm-character-statistics/dm-character-statistics.component';
 import { DmSearchCardComponent } from './display/dm-search-card/dm-search-card.component';
+import { DmCharacterSectionComponent } from './dm-character-sheet/components/dm-character-section/dm-character-section.component';
+import { DmNodevarCardComponent } from './dm-character-sheet/components/dm-nodevar-card/dm-nodevar-card.component';
+import { DmSimpleCardComponent } from './dm-character-sheet/components/dm-simple-card/dm-simple-card.component';
+import { DmCharacterInventoryComponent } from './dm-character-sheet/dm-character-inventory/dm-character-inventory.component';
+import { DmCharacterMagicComponent } from './dm-character-sheet/dm-character-magic/dm-character-magic.component';
+import { DmCharacterNotesComponent } from './dm-character-sheet/dm-character-notes/dm-character-notes.component';
+import { DmCharacterStatisticsComponent } from './dm-character-sheet/dm-character-statistics/dm-character-statistics.component';
+import { DmAbilityModifierPipe } from './dm-character-sheet/pipes/dm-ability-modifier.pipe';
+import { DmSkillModifierPipe } from './dm-character-sheet/pipes/dm-skill-modifier.pipe';
+import { DmBooleanInputComponent } from './form/inputs/dm-boolean-input/dm-boolean-input.component';
 import { DmTableInputComponent } from './form/inputs/dm-table-input/dm-table-input.component';
 import { DmCharacterSheetComponent } from './routes/dm-character-sheet/dm-character-sheet.component';
 import { DmMainComponent } from './routes/dm-main/dm-main.component';
@@ -71,7 +78,13 @@ export let AppInjector: Injector;
     DmCharacterStatisticsComponent,
     DmCharacterInventoryComponent,
     DmCharacterMagicComponent,
-    DmCharacterNotesComponent
+    DmCharacterNotesComponent,
+    DmAbilityModifierPipe,
+    DmSkillModifierPipe,
+    DmBooleanInputComponent,
+    DmSimpleCardComponent,
+    DmNodevarCardComponent,
+    DmCharacterSectionComponent
   ],
   imports: [
     BrowserModule,
@@ -89,6 +102,7 @@ export let AppInjector: Injector;
     MatDialogModule,
     MatTabsModule,
     MatCardModule,
+    MatSelectModule,
     OverlayModule
   ],
   providers: [],

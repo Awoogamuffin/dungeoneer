@@ -1,0 +1,73 @@
+<ng-container *ngIf="character;else emptyCharacterTemplate">
+    <!-- Section: Creature Description -->
+    <dm-character-section [sectionTitle]="'Character Description'">
+        <!-- Iterate character attributes: creatureDescription -->
+        <div *ngFor="let creatureDesc of creatureDescription">
+            <!-- Component: basic title + value editable input -->
+            <dm-nodevar-card [character]="character" [nodevarObj]="creatureDesc" (edit)="onValueEdit($event)">
+            </dm-nodevar-card>
+        </div>
+    </dm-character-section>
+    <!-- Section: Features -->
+    <dm-character-section [sectionTitle]="'Features'">
+        <dm-simple-card [label]="'Proficiency Bonus'" [value]="characterStats?.profiencyBonus"></dm-simple-card>
+        <ng-container *ngIf="characterStats?.character?.character_isJackOfAllTrades">
+            <dm-nodevar-card [character]="character" [nodevarObj]="'isJackOfAllTrades'" (edit)="onValueEdit($event)">
+            </dm-nodevar-card>
+        </ng-container>
+    </dm-character-section>
+    <!-- Section: Creature State (health, etc.) -->
+    <dm-character-section [sectionTitle]="'State'">
+        <!-- Iterate character attributes: healthState -->
+        <div *ngFor="let creatureState of healthState">
+            <!-- Component: basic title + value editable input -->
+            <dm-nodevar-card [character]="character" [nodevarObj]="creatureState" (edit)="onValueEdit($event)">
+            </dm-nodevar-card>
+        </div>
+    </dm-character-section>
+    <!-- Section: Abilities -->
+    <dm-character-section [sectionTitle]="'Abilities'">
+        <!-- Iterate character attributes: abilities -->
+        <div *ngFor="let ability of abilities">
+            <!-- Component: basic title + value editable input -->
+            <mat-card>
+                <mat-card-title>
+                    <div class="editLabel" (click)="onValueEdit(ability)">
+                        {{ ability | dmLabel:schema:'character' }}:</div>
+                </mat-card-title>
+                <mat-card-content>
+                    <div class="dataDisplay"
+                        [innerHTML]="ability | dmValue:character:schema:'character':character | dmSafeHTML">
+                    </div>
+                    <div class="dataDisplay">
+                        {{ability | dmValue:character:schema:'character':character | dmAbilityModifier}}
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </dm-character-section>
+    <!-- Section: Passive Perception -->
+    <dm-character-section [sectionTitle]="''">
+        <!-- Passive Perception = 10 + WisdomModifier (+ PB if proficient in Perception) -->
+        <dm-simple-card [label]="'Passive Perception'" [value]="10 + +('abilityWisdom' | dmValue:character:schema:'character':character | dmAbilityModifier |
+                    dmSkillModifier:characterStats)">
+        </dm-simple-card>
+    </dm-character-section>
+    <!-- Section: Skills -->
+    <dm-character-section [sectionTitle]="'Skills'">
+        <!-- Iterate character attributes: abilities -->
+        <div *ngFor="let skill of skills | keyvalue">
+            <!-- Component: basic title + value editable input -->
+            <dm-simple-card [label]="skill.key" [value]="skill.value | dmValue:character:schema:'character':character | dmAbilityModifier |
+                        dmSkillModifier:characterStats">
+            </dm-simple-card>
+
+        </div>
+    </dm-character-section>
+</ng-container>
+
+<!-- Template to show if the character object is empty.
+Although it appears that the current constructor will create a new character if this page is entered directly with a new uid. -->
+<ng-template #emptyCharacterTemplate>
+    <h2>You shouldn't be here...</h2>
+</ng-template>

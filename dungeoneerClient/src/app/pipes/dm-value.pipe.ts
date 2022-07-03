@@ -49,6 +49,9 @@ export class DmValuePipe implements PipeTransform {
 
         case 'datetime':
           return formatDate(new Date(item[key]), 'HH:mm MMMM dd, yyyy', this.locale);
+        
+        case 'boolean':
+          return item[key] ? 'True' : 'False';
 
         default:
           return item[key];

@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs';
-import { DmAbstractCharacterComponent } from 'src/app/character-sheet/dm-abstract-character.component';
 import { DmUnsubscriberComponent } from 'src/app/core/dm-unsubscriber/dm-unsubscriber.component';
 import { DmDataStoreService } from 'src/app/data/dm-data-store.service';
+import { DmAbstractCharacterComponent } from 'src/app/dm-character-sheet/dm-abstract-character.component';
 
 @Component({
   selector: 'dm-character-sheet',

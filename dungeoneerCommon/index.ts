@@ -23,6 +23,7 @@ export const dungeoneerSchema: Schema = {
 
         character: {
             nodeVars: {
+                // Character descriptive properties
                 name: {
                     type: 'string',
                     validation: {
@@ -78,6 +79,42 @@ export const dungeoneerSchema: Schema = {
                         required: true
                     } 
                 },
+                // Character Health State
+                hitPointsMax: {
+                    type: 'int',
+                    label: 'Hit Point Max',
+                    validation: {
+                        required: true
+                    } 
+                },
+                hitPointsCurrent: {
+                    type: 'int',
+                    label: 'Hit Points',
+                },
+                hitPointsTemp: {
+                    type: 'int',
+                    label: 'Temp. Hit Points',
+                },
+                hitDiceTotal: {
+                    type: 'int',
+                    label: 'Total Hit Dice',
+                    validation: {
+                        required: true
+                    } 
+                },
+                hitDiceCurrent: {
+                    type: 'int',
+                    label: 'Current Hit Dice',
+                },
+                deathSuccesses: {
+                    type: 'int',
+                    label: 'Successes',
+                },
+                deathFailures: {
+                    type: 'int',
+                    label: 'Failures',
+                },
+                // Character Abilities
                 abilityStrength: {
                     type: 'int',
                     label: 'Strength',
@@ -120,6 +157,12 @@ export const dungeoneerSchema: Schema = {
                         required: true
                     }
                 },
+                // Character Attributes
+                isJackOfAllTrades: {
+                    type: 'boolean',
+                    label: 'Jack Of All Trades?'
+                },
+                // Inventory
                 items: {
                     type: 'node[]',
                     nodeType: 'item',
@@ -135,7 +178,7 @@ export const dungeoneerSchema: Schema = {
 
             search: ['name'],
             columns: ['name'],
-            edit: ['name', 'class', 'level', 'race', 'items', 'abilityStrength'],
+            edit: ['name', 'class', 'level', 'race', 'isJackOfAllTrades', 'items'],
 
             modalities: {
                 full: {

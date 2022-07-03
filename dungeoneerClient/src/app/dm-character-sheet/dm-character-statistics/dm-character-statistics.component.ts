@@ -19,14 +19,32 @@ export class DmCharacterStatisticsComponent extends DmAbstractCharacterComponent
   savingThrows = ['savingStrength', 'savingDexterity', 'savingConstitution', 'savingIntelligence', 'savingWisdom', 'savingCharisma'];
   // saving throw values are determined from the corresponding abilities
   // possible modifiers to saving throws: 1) proficient (+PB), 2) has advantage against <attack_type>, 3)DM says so, 4) ??
-  skills = ['skillAcrobatics', 'skillAnimalHandling', 'skillArcana', 'skillAthletics', 'skillDeception',
-    'skillHistory', 'skillInsight', 'skillIntimidation', 'skillInvestigation', 'skillMedicine', 'skillNature', 'skillPerception',
-    'skillPerformance', 'skillPersuasion', 'skillReligion', 'skillSleightOfHand', 'skillStealth', 'skillSurvival'];
+  skills = new Map<string, string>([
+    ['AnimalHandling', 'abilityWisdom'],
+    ['Acrobatics', 'abilityDexterity'], 
+    ['Arcana', 'abilityIntelligence'],
+    ['Athletics', 'abilityStrength'],
+    ['Deception', 'abilityCharisma'],
+    ['History', 'abilityIntelligence'],
+    ['Insight', 'abilityWisdom'],
+    ['Intimidation', 'abilityCharisma'],
+    ['Investigation', 'abilityIntelligence'],
+    ['Medicine', 'abilityWisdom'],
+    ['Nature', 'abilityIntelligence'],
+    ['Perception', 'abilityWisdom'],
+    ['Performance', 'abilityCharisma'],
+    ['Persuasion', 'abilityCharisma'],
+    ['Religion', 'abilityIntelligence'],
+    ['SleightOfHand', 'abilityDexterity'],
+    ['Stealth', 'abilityDexterity'],
+    ['Survival', 'abilityWisdom']
+  ]
+  );
   // skill values are determined from the corresponding abilities
   // possible modifiers to skills: 1) proficient (+PB), 2) jack of all trades (+PB/2), 3) expertise (x2), 4) DM says so, 5) ??
-  healthState = ['hitPointMax', 'currentHitPoints', 'temporaryHitPoints', 'totalHitDice', 'currentHitDice', 'deathSuccesses', 'deathFailures'];
+  healthState = ['hitPointsMax', 'hitPointsCurrent', 'hitPointsTemp', 'hitDiceTotal', 'hitDiceCurrent', 'deathSuccesses', 'deathFailures'];
   // speed is determined by race + some external effects
-  // proficiencyBonus = 1 + Math.ceil()
+  // proficiencyBonus = 1 + Math.ceil(level / 4)
   // initiative = dexterity
   // armourClass = armour AC + Dexterity modifier
   
