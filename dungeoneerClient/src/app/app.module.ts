@@ -50,6 +50,7 @@ import { DmBooleanInputComponent } from './form/inputs/dm-boolean-input/dm-boole
 import { DmTableInputComponent } from './form/inputs/dm-table-input/dm-table-input.component';
 import { DmCharacterSheetComponent } from './routes/dm-character-sheet/dm-character-sheet.component';
 import { DmMainComponent } from './routes/dm-main/dm-main.component';
+import { DmSavingModifierPipe } from './dm-character-sheet/pipes/dm-saving-modifier.pipe';
 
 export let AppInjector: Injector;
 
@@ -84,7 +85,8 @@ export let AppInjector: Injector;
     DmBooleanInputComponent,
     DmSimpleCardComponent,
     DmNodevarCardComponent,
-    DmCharacterSectionComponent
+    DmCharacterSectionComponent,
+    DmSavingModifierPipe
   ],
   imports: [
     BrowserModule,

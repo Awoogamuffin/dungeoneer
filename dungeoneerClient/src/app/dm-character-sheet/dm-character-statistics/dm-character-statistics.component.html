@@ -37,6 +37,10 @@
                 <div>
                     {{ability | dmValue:character:schema:'character':character | dmAbilityModifier}}
                 </div>
+                <div>
+                    Save: {{ability | dmValue:character:schema:'character':character | dmAbilityModifier |
+                    dmSavingModifier:ability:characterStats}}
+                </div>
             </dm-nodevar-card>
         </div>
     </dm-character-section>
@@ -44,7 +48,7 @@
     <dm-character-section [sectionTitle]="''">
         <!-- Passive Perception = 10 + WisdomModifier (+ PB if proficient in Perception) -->
         <dm-simple-card [label]="'Passive Perception'" [value]="10 + +('abilityWisdom' | dmValue:character:schema:'character':character | dmAbilityModifier |
-                    dmSkillModifier:characterStats)">
+                    dmSkillModifier:'perception':characterStats)">
         </dm-simple-card>
     </dm-character-section>
     <!-- Section: Skills -->
@@ -53,7 +57,7 @@
         <div *ngFor="let skill of skills | keyvalue">
             <!-- Component: basic title + value editable input -->
             <dm-simple-card [label]="skill.key" [value]="skill.value | dmValue:character:schema:'character':character | dmAbilityModifier |
-                        dmSkillModifier:characterStats">
+                        dmSkillModifier:skill.key:characterStats">
             </dm-simple-card>
 
         </div>

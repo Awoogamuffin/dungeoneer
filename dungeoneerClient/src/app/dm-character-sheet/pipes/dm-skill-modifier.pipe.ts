@@ -6,13 +6,16 @@ import { CreatureStats } from '../model/creature-stats.model';
 })
 export class DmSkillModifierPipe implements PipeTransform {
 
-  transform(abilityModifier: string, characterStats: CreatureStats): string {
+  transform(abilityModifier: string, skillName: string, characterStats: CreatureStats): string {
 
     let skillModifier: number = +abilityModifier;
 
     // TODO: retrieve these properties from the character schema
-    const hasExpertise = false;
-    const isProficient = false;
+    const skillExpertise: string = characterStats.character?.character_skillExpertise?.toLowerCase();
+    const skillProficiencies: string = characterStats.character?.character_skillProficiencies?.toLowerCase();
+
+    const hasExpertise = skillExpertise?.includes(skillName.toLowerCase());
+    const isProficient = skillProficiencies?.includes(skillName.toLowerCase());
     const isJackOfAllTrades = characterStats.character?.character_isJackOfAllTrades;
 
     if (hasExpertise) {

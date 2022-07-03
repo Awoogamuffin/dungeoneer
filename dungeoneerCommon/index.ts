@@ -162,6 +162,18 @@ export const dungeoneerSchema: Schema = {
                     type: 'boolean',
                     label: 'Jack Of All Trades?'
                 },
+                // Skill proficiencies - hack, store array as csv string...
+                skillProficiencies: {
+                    type: 'string'
+                },
+                // Skill expertise - hack, store array as csv string...
+                skillExpertise: {
+                    type: 'string'
+                },
+                // Saving Throw proficiencies - hack, store array as csv string...
+                savingProficiencies: {
+                    type: 'string'
+                },
                 // Inventory
                 items: {
                     type: 'node[]',
@@ -178,7 +190,7 @@ export const dungeoneerSchema: Schema = {
 
             search: ['name'],
             columns: ['name'],
-            edit: ['name', 'class', 'level', 'race', 'isJackOfAllTrades', 'items'],
+            edit: ['name', 'class', 'level', 'race', 'isJackOfAllTrades', 'items', 'skillProficiencies', 'skillExpertise', 'savingProficiencies'],
 
             modalities: {
                 full: {

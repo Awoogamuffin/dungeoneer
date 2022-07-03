@@ -44,16 +44,19 @@ export class DmCharacterSheetComponent extends DmUnsubscriberComponent implement
       modality: 'full'
     }, 'characterSheetData');
 
-    this.dataStore.getData('characterSheetData').pipe(takeUntil(this.unsubscribeAll)).subscribe((data) => {
+    const waitHack: number = !!this.characterPages ? 0 : 100;
+    setTimeout(() => {
+      this.dataStore.getData('characterSheetData').pipe(takeUntil(this.unsubscribeAll)).subscribe((data) => {
 
-      if (data && data.data && data.data[0]) {
-        this.character = data.data[0];
-        console.log('CHARACTER DATA!', this.character);
-        this.characterPages?.forEach((c) => c.onCharacterChange(this.characterID, this.character));
+        if (data && data.data && data.data[0]) {
+          this.character = data.data[0];
+          console.log('CHARACTER DATA!', this.character);
+          this.characterPages?.forEach((c) => c.onCharacterChange(this.characterID, this.character));
 
-        this.changeDetectorRef.detectChanges();
-      }
-    })
+          this.changeDetectorRef.detectChanges();
+        }
+      });
+    }, waitHack);
   }
 
   returnToMainPage(): void {
