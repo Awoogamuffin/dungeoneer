@@ -16,6 +16,7 @@ services:
     image: node
     working_dir: /home/node/dungeoneerServer
     ports:
+        - 9229:9229
         - 1759:1759
     volumes:
         - ./:/home/node

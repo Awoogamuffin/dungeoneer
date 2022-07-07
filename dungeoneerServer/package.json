@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "jest",
-    "dev": "nodemon --watch ../dungeoneerCommon --watch . dist/index.js",
+    "dev": "nodemon --inspect=0.0.0.0:9229 --watch ../dungeoneerCommon --watch . dist/index.js",
     "watch": "tsc --watch --project tsconfig-build.json"
   },
   "jest": {
