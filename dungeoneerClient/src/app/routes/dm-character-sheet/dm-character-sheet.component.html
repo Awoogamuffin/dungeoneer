@@ -1,2 +1,20 @@
-<p>dm-character-sheet works!</p>
-<b>Total Weight: </b>{{ this.totalWeight }}
+<button mat-raised-button (click)="returnToMainPage()">back to main</button>
+
+<h1>{{character?.character_name}}'s Character Sheet</h1>
+
+<mat-tab-group>
+    <mat-tab label="Character">
+        <dm-character-statistics #characterPage [characterID]="characterID" [character]="character">
+        </dm-character-statistics>
+    </mat-tab>
+    <mat-tab label="Inventory">
+        <dm-character-inventory #characterPage [characterID]="characterID" [character]="character">
+        </dm-character-inventory>
+    </mat-tab>
+    <mat-tab label="Magic">
+        <dm-character-magic #characterPage [characterID]="characterID" [character]="character"></dm-character-magic>
+    </mat-tab>
+    <mat-tab label="Notes">
+        <dm-character-notes #characterPage [characterID]="characterID" [character]="character"></dm-character-notes>
+    </mat-tab>
+</mat-tab-group>

@@ -1,6 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ViewContainerRef } from '@angular/core';
-import { DmTableComponent } from 'src/app/display/dm-table/dm-table.component';
+import { ChangeDetectionStrategy, Component, Input, OnInit, ViewContainerRef } from '@angular/core';
 import { DmFormInputData } from '../DmFormInputData';
+import { DmBooleanInputComponent } from '../inputs/dm-boolean-input/dm-boolean-input.component';
 import { DmIntInputComponent } from '../inputs/dm-int-input/dm-int-input.component';
 import { DmStringInputComponent } from '../inputs/dm-string-input/dm-string-input.component';
 import { DmTableInputComponent } from '../inputs/dm-table-input/dm-table-input.component';
@@ -31,6 +31,10 @@ export class DmInputComponent implements OnInit {
 
       case 'int':
         this.viewContainerRef.createComponent(DmIntInputComponent).instance.inputData = this.inputData;
+        break;
+      
+      case 'boolean':
+        this.viewContainerRef.createComponent(DmBooleanInputComponent).instance.inputData = this.inputData;
         break;
 
       case 'node[]':

@@ -1,0 +1,11 @@
+<mat-form-field>
+    <mat-label>{{ label }}</mat-label>
+    <mat-select matInput [required]="abstractControl.hasError('required')" [formControl]="this.getFormControl()">
+        <!-- The options appear to be stored as 1=True and 0=False when saved to the databse (?) -->
+        <mat-option [value]="1">True</mat-option>
+        <mat-option [value]="0">False</mat-option>
+    </mat-select>
+    <mat-error *ngIf="abstractControl.hasError('required')">
+        Value is required
+    </mat-error>
+</mat-form-field>

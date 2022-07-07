@@ -1,8 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { distinctUntilChanged, takeUntil } from 'rxjs';
 import { DmDialogComponent } from 'src/app/display/dialog/dm-dialog/dm-dialog.component';
 import { DmFormComponent } from '../dm-form/dm-form.component';
-import { DmFormInputData } from '../DmFormInputData';
 
 @Component({
   selector: 'dm-form-dialog',
@@ -17,10 +16,6 @@ export class DmFormDialogComponent extends DmFormComponent implements OnInit {
 
   saveButtonClass: string = 'mat-primary';
   formValid: boolean = false;
-
-  constructor() {
-    super();
-  }
 
   override ngOnInit(): void {
     super.ngOnInit();

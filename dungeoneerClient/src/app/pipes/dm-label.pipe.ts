@@ -10,7 +10,7 @@ export class DmLabelPipe implements PipeTransform {
     if (schema && schema.nodeTypes[nodeType]) {
       const nodeTypeSchema = schema.nodeTypes[nodeType];
       const nodeVarSchema = nodeTypeSchema.nodeVars[key];
-      if (nodeVarSchema.label) {
+      if (nodeVarSchema?.label) {
         return nodeVarSchema.label;
       }
     }

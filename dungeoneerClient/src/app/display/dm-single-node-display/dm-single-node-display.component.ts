@@ -1,11 +1,11 @@
-import { Component, EventEmitter, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { dungeoneerSchema } from 'dungeoneer-common';
-import { DmSetParams } from 'dungeoneer-common/dist/types/src/connection/connectionTypes';
 import { NodeType, NodeVar, Schema } from 'dungeoneer-common/dist/types/src/schema/schemaTypes';
 import { takeUntil } from 'rxjs';
 import { DmWebSocketService } from 'src/app/connection/dm-web-socket.service';
 import { DmUnsubscriberComponent } from 'src/app/core/dm-unsubscriber/dm-unsubscriber.component';
 import { DmDataStoreService } from 'src/app/data/dm-data-store.service';
+import { EditEventObject } from 'src/app/form/dm-form-edit/dm-edit-event.model';
 import { DmDialogService } from '../dialog/dm-dialog.service';
 
 @Component({
@@ -30,7 +30,7 @@ export class DmSingleNodeDisplayComponent extends DmUnsubscriberComponent implem
   schema: Schema = dungeoneerSchema;
 
   @Output()
-  edit: EventEmitter<editEventObject> = new EventEmitter();
+  edit: EventEmitter<EditEventObject> = new EventEmitter();
 
   constructor(private dmDataStore: DmDataStoreService,
     private dialog: DmDialogService,

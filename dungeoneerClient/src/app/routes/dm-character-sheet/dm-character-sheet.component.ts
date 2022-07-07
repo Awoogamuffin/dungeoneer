@@ -1,8 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs';
 import { DmUnsubscriberComponent } from 'src/app/core/dm-unsubscriber/dm-unsubscriber.component';
 import { DmDataStoreService } from 'src/app/data/dm-data-store.service';
+import { DmAbstractCharacterComponent } from 'src/app/dm-character-sheet/dm-abstract-character.component';
 
 @Component({
   selector: 'dm-character-sheet',
@@ -12,12 +13,15 @@ import { DmDataStoreService } from 'src/app/data/dm-data-store.service';
 })
 export class DmCharacterSheetComponent extends DmUnsubscriberComponent implements OnInit {
 
-  totalWeight = 0;
+  private readonly NODE_TYPE = 'character';
+
+  @ViewChildren('characterPage') characterPages!: QueryList<DmAbstractCharacterComponent>;
 
   characterID!: string | null;
   character!: any;
 
   constructor(private dataStore: DmDataStoreService,
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private changeDetectorRef: ChangeDetectorRef) {
     super();
@@ -33,32 +37,29 @@ export class DmCharacterSheetComponent extends DmUnsubscriberComponent implement
 
     console.log('fetching character data for uid', this.characterID);
     this.dataStore.fetchData({
-      nodeType: 'character',
+      nodeType: this.NODE_TYPE,
       search: {
         uid: this.characterID
       },
       modality: 'full'
     }, 'characterSheetData');
 
-    this.dataStore.getData('characterSheetData').pipe(takeUntil(this.unsubscribeAll)).subscribe((data) => {
-      this.totalWeight = 0;
-      if (data && data.data && data.data[0]) {
-        this.character = data.data[0];
-        console.log('CHARACTER DATA!', this.character);
+    const waitHack: number = !!this.characterPages ? 0 : 100;
+    setTimeout(() => {
+      this.dataStore.getData('characterSheetData').pipe(takeUntil(this.unsubscribeAll)).subscribe((data) => {
 
-        if (this.character.character_items) {
-          console.log('have items');
-          for (const item of this.character.character_items) {
-            console.log('item', item, item.item_weight, item['character_items|amount']);
-            if (item.item_weight && item['character_items|amount']) {
-              this.totalWeight += item.item_weight * item['character_items|amount'];
-            }
-          }
+        if (data && data.data && data.data[0]) {
+          this.character = data.data[0];
+          console.log('CHARACTER DATA!', this.character);
+          this.characterPages?.forEach((c) => c.onCharacterChange(this.characterID, this.character));
+
+          this.changeDetectorRef.detectChanges();
         }
-
-        this.changeDetectorRef.detectChanges();
-      }
-    })
+      });
+    }, waitHack);
   }
 
+  returnToMainPage(): void {
+    this.router.navigate(['/']);
+  }
 }

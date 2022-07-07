@@ -1,11 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { dungeoneerSchema } from 'dungeoneer-common';
-import { NodeType, Schema } from 'dungeoneer-common/dist/types/src/schema/schemaTypes';
+import { Schema } from 'dungeoneer-common/dist/types/src/schema/schemaTypes';
 import { Subject, takeUntil } from 'rxjs';
 import { DmUnsubscriberComponent } from 'src/app/core/dm-unsubscriber/dm-unsubscriber.component';
 import { DmFormInputData } from 'src/app/form/DmFormInputData';
-import { generateInputsFromSchema, getFormGroupFromInputData } from 'src/app/form/DmFormUtils';
+import { DmFormUtils } from 'src/app/form/DmFormUtils';
 
 @Component({
   selector: 'dm-search-card',
@@ -30,7 +30,7 @@ export class DmSearchCardComponent extends DmUnsubscriberComponent implements On
   searchFormGroup!: FormGroup;
   searchInputs!: DmFormInputData[];
 
-  constructor() {
+  constructor(private dmFormUtils: DmFormUtils) {
     super();
   }
 
@@ -47,8 +47,8 @@ export class DmSearchCardComponent extends DmUnsubscriberComponent implements On
       throw new Error('no nodeType provided for search card');
     }
 
-    this.searchInputs = generateInputsFromSchema(this.schema, this.nodeType, this.initialData, 'search');
-    this.searchFormGroup = getFormGroupFromInputData(this.searchInputs);
+    this.searchInputs = this.dmFormUtils.generateInputsFromSchema(this.schema, this.nodeType, this.initialData, 'search');
+    this.searchFormGroup = this.dmFormUtils.getFormGroupFromInputData(this.searchInputs);
 
     this.searchFormGroup.valueChanges.pipe(takeUntil(this.unsubscribeAll)).subscribe((data) => {
       this.searchSubject.next(data);
