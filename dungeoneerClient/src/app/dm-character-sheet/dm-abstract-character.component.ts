@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from "@angular/core";
-import { dungeoneerSchema } from "dungeoneer-common";
+import { getDungeoneerSchema } from "dungeoneer-common";
 import { Schema } from "dungeoneer-common/dist/types/src/schema/schemaTypes";
 import { DmUnsubscriberComponent } from "../core/dm-unsubscriber/dm-unsubscriber.component";
 import { DmFormEditService } from "../form/dm-form-edit/dm-form-edit.service";
@@ -16,7 +16,7 @@ export abstract class DmAbstractCharacterComponent extends DmUnsubscriberCompone
     @Input() characterID!: string | null;
     @Input() character!: any;
 
-    schema: Schema = dungeoneerSchema;
+    schema: Schema = getDungeoneerSchema();
 
     characterStats: CreatureStats;
 

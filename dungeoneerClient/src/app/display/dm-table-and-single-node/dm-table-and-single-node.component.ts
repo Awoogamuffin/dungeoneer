@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { dungeoneerSchema } from "dungeoneer-common";
+import { getDungeoneerSchema } from "dungeoneer-common";
 import { DmFetchParams } from 'dungeoneer-common/dist/types/src/connection/connectionTypes';
 import { NodeType } from 'dungeoneer-common/dist/types/src/schema/schemaTypes';
 import { nanoid } from 'nanoid';
@@ -32,6 +32,9 @@ export class DmTableAndSingleNodeComponent extends DmUnsubscriberComponent imple
   // search subject is passed into the table to prompt it to fetch data based on changes in the search from group.
   searchSubject: Subject<any> = new Subject();
 
+  // Get copy of the dungeoneer schema
+  schema = getDungeoneerSchema();
+
   // specifically the schema for this node type. Extracted from main schema
   nodeSchema!: NodeType;
 
@@ -60,7 +63,7 @@ export class DmTableAndSingleNodeComponent extends DmUnsubscriberComponent imple
     }
     
     console.log('single node request name is', this.singleNodeRequestName);
-    this.nodeSchema = dungeoneerSchema.nodeTypes[this.nodeType];
+    this.nodeSchema = this.schema.nodeTypes[this.nodeType];
 
     if (!this.nodeSchema) {
       console.warn('no node schema found for', this.nodeType);
@@ -87,7 +90,7 @@ export class DmTableAndSingleNodeComponent extends DmUnsubscriberComponent imple
   }
 
   onAdd() {
-    this.formEditService.addEvent(dungeoneerSchema, this.nodeType);
+    this.formEditService.addEvent(this.schema, this.nodeType);
   }
 
   checkDblClickEdit() {
@@ -109,7 +112,7 @@ export class DmTableAndSingleNodeComponent extends DmUnsubscriberComponent imple
   }
 
   onEdit(editEventObject: EditEventObject) {
-    this.formEditService.editEvent(dungeoneerSchema, this.nodeType, editEventObject);
+    this.formEditService.editEvent(this.schema, this.nodeType, editEventObject);
   }
 
 }

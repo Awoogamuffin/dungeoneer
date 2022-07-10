@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { dungeoneerSchema } from 'dungeoneer-common';
+import { getDungeoneerSchema } from 'dungeoneer-common';
 import { NodeType, NodeVar, Schema } from 'dungeoneer-common/dist/types/src/schema/schemaTypes';
 import { takeUntil } from 'rxjs';
 import { DmWebSocketService } from 'src/app/connection/dm-web-socket.service';
@@ -27,7 +27,7 @@ export class DmSingleNodeDisplayComponent extends DmUnsubscriberComponent implem
   itemData!: any;
   itemKeys!: string[];
 
-  schema: Schema = dungeoneerSchema;
+  schema: Schema = getDungeoneerSchema();
 
   @Output()
   edit: EventEmitter<EditEventObject> = new EventEmitter();
@@ -45,7 +45,7 @@ export class DmSingleNodeDisplayComponent extends DmUnsubscriberComponent implem
       return;
     }
 
-    this.nodeSchema = dungeoneerSchema.nodeTypes[this.nodeType];
+    this.nodeSchema = this.schema.nodeTypes[this.nodeType];
 
     if (!this.nodeSchema) {
       console.warn('no node schema found for', this.nodeType);
@@ -79,14 +79,14 @@ export class DmSingleNodeDisplayComponent extends DmUnsubscriberComponent implem
   }
 
   getEdgeNodeType(key: string): string | undefined {
-    let nodeType = dungeoneerSchema.nodeTypes[this.nodeType].nodeVars[key].nodeType;
+    let nodeType = this.schema.nodeTypes[this.nodeType].nodeVars[key].nodeType;
     return nodeType;
   }
 
   getEdgeLabelVar(key: string): string {
     const edgeType = this.getEdgeNodeType(key);
     if (edgeType) {
-      const labelVar = dungeoneerSchema.nodeTypes[edgeType].labelVar || 'name';
+      const labelVar = this.schema.nodeTypes[edgeType].labelVar || 'name';
       return edgeType + '_' + labelVar;
     }
 
@@ -96,7 +96,7 @@ export class DmSingleNodeDisplayComponent extends DmUnsubscriberComponent implem
   getEdgeFacets(node: any, key: string): string {
     let toReturn = '';
 
-    const varSchema: NodeVar = dungeoneerSchema.nodeTypes[this.nodeType].nodeVars[key];
+    const varSchema: NodeVar = this.schema.nodeTypes[this.nodeType].nodeVars[key];
     if (varSchema.facets) {
       for (const facet of varSchema.facets) {
         // a bit hacky for now. I could formalise how facets are displayed, but for now I'm hacking it
