@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { dungeoneerSchema } from 'dungeoneer-common';
+import { getDungeoneerSchema } from 'dungeoneer-common';
 import { Schema } from 'dungeoneer-common/dist/types/src/schema/schemaTypes';
 import { Subject, takeUntil } from 'rxjs';
 import { DmUnsubscriberComponent } from 'src/app/core/dm-unsubscriber/dm-unsubscriber.component';
@@ -36,7 +36,7 @@ export class DmSearchCardComponent extends DmUnsubscriberComponent implements On
 
   ngOnInit(): void {
     if (!this.schema) {
-      this.schema = dungeoneerSchema;
+      this.schema = getDungeoneerSchema();
     }
 
     if (!this.searchSubject) {

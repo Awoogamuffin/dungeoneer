@@ -224,3 +224,10 @@ export const dungeoneerSchema: Schema = {
         }
     }
 }
+
+/**
+ * @returns A deep copy of the dungeoneerSchema (i.e. without passing references to child objects)
+ */
+export function getDungeoneerSchema(): Schema {
+    return JSON.parse(JSON.stringify(dungeoneerSchema));
+}
