@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { dungeoneerSchema, getDungeoneerSchema } from "dungeoneer-common";
+import { getDungeoneerSchema } from "dungeoneer-common";
 import { DmFetchParams } from 'dungeoneer-common/dist/types/src/connection/connectionTypes';
 import { NodeType } from 'dungeoneer-common/dist/types/src/schema/schemaTypes';
 import { nanoid } from 'nanoid';
@@ -90,7 +90,7 @@ export class DmTableAndSingleNodeComponent extends DmUnsubscriberComponent imple
   }
 
   onAdd() {
-    this.formEditService.addEvent(dungeoneerSchema, this.nodeType);
+    this.formEditService.addEvent(this.schema, this.nodeType);
   }
 
   checkDblClickEdit() {
@@ -112,7 +112,7 @@ export class DmTableAndSingleNodeComponent extends DmUnsubscriberComponent imple
   }
 
   onEdit(editEventObject: EditEventObject) {
-    this.formEditService.editEvent(dungeoneerSchema, this.nodeType, editEventObject);
+    this.formEditService.editEvent(this.schema, this.nodeType, editEventObject);
   }
 
 }
