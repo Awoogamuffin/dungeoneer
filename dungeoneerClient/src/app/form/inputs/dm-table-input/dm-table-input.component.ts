@@ -1,12 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, forwardRef, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, Input, OnInit } from '@angular/core';
 import { FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { dungeoneerSchema } from 'dungeoneer-common';
+import { getDungeoneerSchema } from 'dungeoneer-common';
 import { Facet, Schema } from 'dungeoneer-common/dist/types/src/schema/schemaTypes';
 import { distinctUntilChanged, Subject, takeUntil } from 'rxjs';
 import { DmWebSocketService } from 'src/app/connection/dm-web-socket.service';
 import { DmDataProvider } from 'src/app/data/dm-data-provider';
 import { DmDataStoreService } from 'src/app/data/dm-data-store.service';
-import { DmFormInputData, DmTableInputConfig } from '../../DmFormInputData';
+import { DmTableInputConfig } from '../../DmFormInputData';
 import { DmBaseInputComponent } from '../dm-base-input/dm-base-input.component';
 
 @Component({
@@ -106,7 +106,7 @@ export class DmTableInputComponent extends DmBaseInputComponent implements OnIni
     }
 
     if (!this.schema) {
-      this.schema = dungeoneerSchema;
+      this.schema = getDungeoneerSchema();
     }
 
     console.log('getting edgeSchema', this.edgeType);

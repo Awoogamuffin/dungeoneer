@@ -1,14 +1,14 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
+import { getDungeoneerSchema } from 'dungeoneer-common';
+import { DmFetchParams } from 'dungeoneer-common/dist/types/src/connection/connectionTypes';
+import { NodeType, Schema } from 'dungeoneer-common/dist/types/src/schema/schemaTypes';
 import { nanoid } from 'nanoid';
+import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { DmUnsubscriberComponent } from 'src/app/core/dm-unsubscriber/dm-unsubscriber.component';
 import { DmDataObject, DmDataProvider } from 'src/app/data/dm-data-provider';
 import { DmDataStoreService } from 'src/app/data/dm-data-store.service';
 import { DmDatabaseProvider } from 'src/app/data/providers/dm-data-store-provider';
-import { DmFetchParams } from 'dungeoneer-common/dist/types/src/connection/connectionTypes';
-import { NodeType, Schema } from 'dungeoneer-common/dist/types/src/schema/schemaTypes';
-import { dungeoneerSchema } from 'dungeoneer-common';
 
 
 @Component({
@@ -77,7 +77,7 @@ export class DmTableComponent extends DmUnsubscriberComponent implements OnInit 
   ngOnInit(): void {
 
     if (!this.schema) {
-      this.schema = dungeoneerSchema;
+      this.schema = getDungeoneerSchema();
     }
 
     if (!this.nodeType) {
