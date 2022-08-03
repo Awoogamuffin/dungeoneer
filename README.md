@@ -144,6 +144,12 @@ You might want to go to the definition of that component to see what it's doing,
 
 Now look at your client. Tadaaaa! We can view, edit and add towns to our heart's content!
 
+## I want to play with the data directly
+
+If you look at the docker-compose file, you'll notice a service called "ratel". This is the dgraph visualiser where you can directly run queries and modify data.
+
+Access it by going to `localhost:8000`
+
 ## Conclusion
 
 Obviously, this interface is not what we want for a D&D app. I think what's useful, though, is the query generator, and the data schema, to quickly get things set up. Then we can have bespoke interfaces for each user type and page. But all the data behind a character could be using the same DmFetchParams and DmSetParams for retrieving and setting data, and any changes that do happen get immediately communicated to the other players.

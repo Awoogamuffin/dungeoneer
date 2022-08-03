@@ -34,14 +34,16 @@ export class DmDgraphClient implements DmDatabaseClient {
                 this.clientStub = new DgraphClientStub(process.env.dgraphurl, grpc.credentials.createInsecure());
                 this.dgraphClient = new DgraphClient(this.clientStub);
 
-                // fetch settings (and also check connection is working). Will return error if connection is no good
-                await this.getSettings();
                 // load the schema. Also might throw errors
                 await this.loadSchema(this.schema);
+
+                // fetch settings (and also check connection is working). Will return error if connection is no good
+                await this.getSettings();
 
                 // if we got through all that without errors, the database is now ready to go!
                 return true;
             } catch(e: any) {
+                console.warn('attempted connection failed');
                 if(this.clientStub) {
                     this.clientStub.close();
                 }
@@ -150,6 +152,10 @@ export class DmDgraphClient implements DmDatabaseClient {
                     case 'node':
                     case 'child':
                         alterStrings.push(`${nodeTypeName}_${varName}: uid @reverse .`);
+                        break;
+
+                    case 'boolean':
+                        alterStrings.push(`${nodeTypeName}_${varName}: bool .`);
                         break;
         
                     case 'node[]':

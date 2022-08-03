@@ -1,0 +1,39 @@
+version: "3.2"
+services:
+
+  dungeoneer-client:
+    image: dungeoneer/client
+    ports:
+      - 80:80
+
+  dungeoneer-server:
+    image: dungeoneer/server
+    ports:
+      - 1759:1759
+    environment:
+      - "dgraphurl=dgraph-alpha:9080"
+
+  # below is same as the dev values for dgraph. I've kept dgraph ports exposed to be able to use ratel, but I suppose
+  # we'd want to avoid that in the future. Or implement better ratel security
+  dgraph-alpha:
+    image: dgraph/dgraph:latest
+    volumes:
+      - ./dgraphData:/dgraph
+    ports:
+      - 8080:8080
+    command: dgraph alpha --my=dgraph-alpha:7080 --zero=dgraph-zero:5080 --export /export  --security whitelist=172.0.0.0:172.50.0.20
+  
+  dgraph-zero:
+    image: dgraph/dgraph:latest
+    volumes:
+      - ./dgraphData:/dgraph
+    command: dgraph zero --my=dgraph-zero:5080
+
+  # ratel is a nice little client that allows you to run queries on your database and visualise the results
+  ratel:
+    image: dgraph/ratel
+    volumes:
+      - ./dgraphData:/dgraph
+    ports:
+      - 8000:8000
+    command: dgraph-ratel

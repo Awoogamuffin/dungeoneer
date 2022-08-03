@@ -1,0 +1,9 @@
+FROM node
+# The purpose of separating this is that rebuilding node_modules is only necessary when new modules have been added. Allows for quicker uploads
+
+COPY dungeoneerServer/package.json /app/dungeoneerServer/package.json
+WORKDIR /app/dungeoneerServer
+RUN npm install --omit=dev
+
+COPY dungeoneerCommon/dist /app/dungeoneerCommon/dist
+COPY dungeoneerCommon/package.json /app/dungeoneerCommon/package.json
