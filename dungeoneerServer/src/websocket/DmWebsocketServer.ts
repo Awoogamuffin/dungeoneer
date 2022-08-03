@@ -30,6 +30,7 @@ export class DmWebSocketServer {
 
             dmws.on('message', (requestBinary: DmRequest) => {
                 try {
+                    console.log('should have reached break point');
                     const request = JSON.parse(requestBinary.toString());
                     // this.emit('message', data);
                     // whatever the request, we send a message received signal
