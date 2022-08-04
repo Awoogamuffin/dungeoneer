@@ -10,7 +10,7 @@
     </dm-character-section>
     <!-- Section: Features -->
     <dm-character-section [sectionTitle]="'Features'">
-        <dm-simple-card [label]="'Proficiency Bonus'" [value]="characterStats?.profiencyBonus"></dm-simple-card>
+        <dm-simple-card [label]="'Proficiency Bonus'" [value]="characterStats.profiencyBonus"></dm-simple-card>
         <ng-container *ngIf="characterStats?.character?.character_isJackOfAllTrades">
             <dm-nodevar-card [character]="character" [nodevarObj]="'isJackOfAllTrades'" (edit)="onValueEdit($event)">
             </dm-nodevar-card>
@@ -34,7 +34,7 @@
                 [customContent]="true">
                 <div [innerHTML]="ability | dmValue:character:schema:'character':character | dmSafeHTML">
                 </div>
-                <div>
+                <div class="isThisIt">
                     {{ability | dmValue:character:schema:'character':character | dmAbilityModifier}}
                 </div>
                 <div>

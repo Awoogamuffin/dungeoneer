@@ -12,10 +12,11 @@ export class DmValuePipe implements PipeTransform {
 
   transform(fakeKey: string, item: any, schema: any, nodeType: string, itemData?: any): string {
     if (schema.nodeTypes[nodeType]) {
-
+      console.log('fake key', fakeKey);
       const key = `${nodeType}_${fakeKey}`;
 
-      if (!item[key]) {
+      // had to use hasOwnProperty because simply using !item[key] returns flase for numerical 0
+      if (!item.hasOwnProperty(key)) {
         return '';
       }
 
@@ -26,7 +27,6 @@ export class DmValuePipe implements PipeTransform {
       if (!varSchema) {
         return key;
       }
-
       switch (varSchema.type) {
         case 'string':
           return item[key];
