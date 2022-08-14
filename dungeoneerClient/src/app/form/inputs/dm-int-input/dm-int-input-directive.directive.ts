@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener } from '@angular/core';
+import { Directive, ElementRef } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 @Directive({
@@ -6,8 +6,9 @@ import { NgControl } from '@angular/forms';
 })
 export class DmIntInputDirectiveDirective {  
 
-  constructor(private elementRef: ElementRef, private ngControl: NgControl) {
+  private abstractControl: any;
 
+  constructor(private elementRef: ElementRef, private ngControl: NgControl) {
   }
 
   get value(): any {
@@ -15,11 +16,11 @@ export class DmIntInputDirectiveDirective {
   }
 
   ngOnInit() {
-    if (this.ngControl && this.ngControl.valueChanges) {
-      this.ngControl.valueChanges.subscribe(() => {
-        this.handleValue();
-      });
-    }
+    this.abstractControl = this.ngControl?.control;
+
+    this.abstractControl?.valueChanges?.subscribe(() => {
+      this.handleValue();
+    });
     
 
     this.handleValue();
@@ -32,8 +33,8 @@ export class DmIntInputDirectiveDirective {
     // remove anything that isn't a digit
     const cleanedValue = numValue.replace(/[^0-9]/g, '');
 
-    if (this.ngControl && this.ngControl.valueAccessor && cleanedValue !== numValue) {
-      this.ngControl.valueAccessor.writeValue(cleanedValue);
+    if (this.abstractControl && cleanedValue !== numValue) {
+      this.abstractControl.setValue(cleanedValue);
       cursorPos--;
     }
 
