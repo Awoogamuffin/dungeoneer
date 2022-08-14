@@ -31,7 +31,7 @@ Maybe a tiny bit more impressive, open up a new tab and go to `localhost:4201`, 
 Obviously for the client you just look at the console in chrome to view logs. To see what the server is doing just run the following:
 
 ```
-docker-compoy logs --tail=1000 -tf dungeoneer-server
+docker-compose logs --tail=1000 -tf dungeoneer-server
 ```
 
 (tail is how many lines before, and -t is show time and -f is keep track of changes)
