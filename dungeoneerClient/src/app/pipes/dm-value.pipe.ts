@@ -53,6 +53,9 @@ export class DmValuePipe implements PipeTransform {
         case 'boolean':
           return item[key] ? 'True' : 'False';
 
+        case 'text':
+          return String(item[key]).replaceAll('\n', '<br>');
+
         default:
           return item[key];
       }

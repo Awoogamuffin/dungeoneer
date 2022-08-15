@@ -174,6 +174,9 @@ export const dungeoneerSchema: Schema = {
                 savingProficiencies: {
                     type: 'string'
                 },
+                bio: {
+                    type: 'text'
+                },
                 // Inventory
                 items: {
                     type: 'node[]',
@@ -190,7 +193,7 @@ export const dungeoneerSchema: Schema = {
 
             search: ['name'],
             columns: ['name'],
-            edit: ['name', 'class', 'level', 'race', 'isJackOfAllTrades', 'items', 'skillProficiencies', 'skillExpertise', 'savingProficiencies'],
+            edit: ['name', 'class', 'level', 'race', 'bio', 'isJackOfAllTrades', 'items', 'skillProficiencies', 'skillExpertise', 'savingProficiencies'],
 
             modalities: {
                 full: {

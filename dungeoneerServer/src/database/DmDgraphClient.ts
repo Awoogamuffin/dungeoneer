@@ -138,7 +138,9 @@ export class DmDgraphClient implements DmDatabaseClient {
         let alterStrings: string[] = [];
 
         for (const [nodeTypeName, nodeType] of Object.entries(schema.nodeTypes)) {
+            let typeString = `type ${nodeTypeName} {\n`;
             for (const [varName, nodeVar] of Object.entries(nodeType.nodeVars)) {
+                typeString += `${nodeTypeName}_${varName}\n`;
                 switch (nodeVar.type) {
                     case 'date':
                         alterStrings.push(`${nodeTypeName}_${varName}: datetime @index(day) .`);
@@ -167,6 +169,12 @@ export class DmDgraphClient implements DmDatabaseClient {
                         alterStrings.push(`${nodeTypeName}_${varName}: int @index(int) .`);
                         break;
 
+                    case 'text':
+                        // for larger blocks of text (e.g. character bio). In the client this will provide a textarea for editing
+                        // in dgraph it will be stored with a full text index, so these larger texts can be searched with very forgiving tokens.
+                        alterStrings.push(`${nodeTypeName}_${varName}: string @index(fulltext) .`)
+                        break;
+
                     case 'string':
                         // a workaround to do with regex limitations (and also apparently it's bad form to have two indexes on the same property)
                         // strings have term index directly, or regex index for the same variable with _search appended. See the setter for how these
@@ -179,6 +187,11 @@ export class DmDgraphClient implements DmDatabaseClient {
                         console.warn('Don\'t know what to do with type', nodeVar.type)
                 }
             }
+
+            typeString += `}`;
+            alterStrings.push(typeString);
+
+            
         }
 
         const op = new Operation();

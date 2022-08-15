@@ -21,10 +21,6 @@ export class DmStringInputComponent extends DmBaseInputComponent implements OnIn
     super();
   }
 
-  override ngOnInit(): void {
-    super.ngOnInit();
-  }
-
   clearString(): void {
     this.abstractControl.setValue(null);
   }

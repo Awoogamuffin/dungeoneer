@@ -43,7 +43,7 @@ export interface NodeType {
 
 export interface NodeVar {
 	// The type of the variable. These types we get to define as need arises.
-	type: 'node' | 'node[]' | 'string' | 'float' | 'int' | 'child' | 'child[]' | 'date' | 'time' | 'datetime' | 'boolean'
+	type: 'node' | 'node[]' | 'string' | 'float' | 'int' | 'child' | 'child[]' | 'date' | 'time' | 'datetime' | 'boolean' | 'text'
 
 	// Label to be displayed in client. If omitted then the value name from the
 	// nodevars map is used.
