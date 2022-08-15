@@ -4,6 +4,7 @@ import { DmBooleanInputComponent } from '../inputs/dm-boolean-input/dm-boolean-i
 import { DmIntInputComponent } from '../inputs/dm-int-input/dm-int-input.component';
 import { DmStringInputComponent } from '../inputs/dm-string-input/dm-string-input.component';
 import { DmTableInputComponent } from '../inputs/dm-table-input/dm-table-input.component';
+import { DmTextInputComponent } from '../inputs/dm-text-input/dm-text-input.component';
 
 @Component({
   selector: 'dm-input',
@@ -39,6 +40,10 @@ export class DmInputComponent implements OnInit {
 
       case 'node[]':
         this.viewContainerRef.createComponent(DmTableInputComponent).instance.inputData = this.inputData;
+        break;
+
+      case 'text':
+        this.viewContainerRef.createComponent(DmTextInputComponent).instance.inputData = this.inputData;
         break;
 
       default:

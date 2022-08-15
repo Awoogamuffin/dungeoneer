@@ -51,6 +51,7 @@ import { DmTableInputComponent } from './form/inputs/dm-table-input/dm-table-inp
 import { DmCharacterSheetComponent } from './routes/dm-character-sheet/dm-character-sheet.component';
 import { DmMainComponent } from './routes/dm-main/dm-main.component';
 import { DmSavingModifierPipe } from './dm-character-sheet/pipes/dm-saving-modifier.pipe';
+import { DmTextInputComponent } from './form/inputs/dm-text-input/dm-text-input.component';
 
 export let AppInjector: Injector;
 
@@ -86,7 +87,8 @@ export let AppInjector: Injector;
     DmSimpleCardComponent,
     DmNodevarCardComponent,
     DmCharacterSectionComponent,
-    DmSavingModifierPipe
+    DmSavingModifierPipe,
+    DmTextInputComponent
   ],
   imports: [
     BrowserModule,
