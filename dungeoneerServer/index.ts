@@ -1,8 +1,8 @@
-import { dungeoneerSchema } from "dungeoneer-common";
 import { DmWebSocketServer } from "./src/websocket/DmWebsocketServer.js";
 import { DmDgraphClient } from "./src/database/DmDgraphClient.js";
 import { DmDatabaseClient } from "./src/database/DmDatabaseClient";
 import * as util from 'util';
+import { dungeoneerSchema } from 'dungeoneer-common';
 
 /**
  * 
@@ -12,7 +12,6 @@ import * as util from 'util';
  * but if I have a file with just typescript interfaces (like DmDatabaseClient for example) I have to omit the .js extension.
  * 
  */
-
 
 console.log('SCHEMA IS', dungeoneerSchema);
 const websocketServer: DmWebSocketServer = new DmWebSocketServer(1759);

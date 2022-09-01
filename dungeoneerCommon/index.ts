@@ -1,4 +1,5 @@
 import { Schema } from "./src/schema/schemaTypes";
+
 export const dungeoneerSchema: Schema = {
     nodeTypes: {
         item: {
@@ -14,7 +15,7 @@ export const dungeoneerSchema: Schema = {
                     type: 'int'
                 }
             },
-
+            
             labelVar: 'name',
             search: ['name'],
             columns: ['name', 'weight'],

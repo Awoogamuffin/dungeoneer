@@ -1,15 +1,39 @@
 import { Mutation } from "dgraph-js";
-import { dungeoneerSchema } from "dungeoneer-common";
 import { DmLinkSetParams, DmSetParams } from "dungeoneer-common/dist/types/src/connection/connectionTypes";
-import { NodeType, NodeVar } from "dungeoneer-common/dist/types/src/schema/schemaTypes";
+import { NodeType, NodeVar, Schema } from "dungeoneer-common/dist/types/src/schema/schemaTypes";
 import { fullLog } from "../../index.js";
 import { DmSetMutations } from "../database/DmDgraphClient";
 
-export async function generateMutations(params: DmSetParams): Promise<DmSetMutations | null> {
+export async function generateMutations(params: DmSetParams, schema: Schema): Promise<DmSetMutations | null> {
+
+    /* if (!schema) {
+        schema = dungeoneerSchema
+    } */
+    
     if (!params.nodeType && params.values) {
         throw new Error('set function requires both nodeType and values to be sent');
     }
 
+    try {
+        const setArrays: { toSet: any, toDelete: any[] } = await getSetArrays(params, schema);
+
+        const setMu: Mutation = new Mutation();
+        setMu.setSetJson(setArrays.toSet);
+
+        const deleteMu: Mutation = new Mutation();
+        deleteMu.setDeleteJson(setArrays.toDelete);
+
+        return {
+            delete: deleteMu,
+            set: setMu
+        };
+    } catch(e) {
+        throw(e);
+    }
+    
+}
+
+export async function getSetArrays(params: DmSetParams, schema: Schema): Promise<{ toSet: any[], toDelete: any[] }> {
     // not included yet, but we could "clean" the values by checking:
     // - are all the keys actually in the schema?
     // - are node values only passing uid? (passing more than uid would represent an additional edit)
@@ -26,11 +50,11 @@ export async function generateMutations(params: DmSetParams): Promise<DmSetMutat
     // the array of all deletions (links or nodes themselves in the case of cihld, child[])
     const toDelete: any = [];
 
-    if (!dungeoneerSchema.nodeTypes[params.nodeType]) {
+    if (!schema.nodeTypes[params.nodeType]) {
         throw new Error(`Schema for ${params.nodeType} not found in setter`);
     }
 
-    const nodeSchema: NodeType = dungeoneerSchema.nodeTypes[params.nodeType];
+    const nodeSchema: NodeType = schema.nodeTypes[params.nodeType];
 
     // if no uid provided, this is a new node. Otherwise we are editing existing node
     mainNodeSet.uid = '_:added';
@@ -58,18 +82,25 @@ export async function generateMutations(params: DmSetParams): Promise<DmSetMutat
                 mainNodeSet[params.nodeType + '_' + key + '_search'] = '&&' + values[key];
                 break;
 
+            case 'child[]':
             case 'node[]':
-                console.log('TIME TO SET NODE TYPE!', values[key]);
                 const linkSetParams: DmLinkSetParams = values[key] as DmLinkSetParams;
 
                 // with node[] types we only need to delete the link. For child[] we need to delete both the link and the child itself.
                 if (linkSetParams.toDelete) {
                     const deletionArray: any[] = [];
-                    for (const toDelete of linkSetParams.toDelete) {
-                        if (toDelete.uid) {
+                    for (const linkToDelete of linkSetParams.toDelete) {
+                        if (linkToDelete.uid) {
                             deletionArray.push({
-                                uid: toDelete.uid
+                                uid: linkToDelete.uid
                             });
+
+                            // in the case of child[] types, we need to delete the node itself also, not just the link
+                            if (varSchema.type === 'child[]') {
+                                toDelete.push({
+                                    uid: linkToDelete.uid
+                                })
+                            }
                         }
                     }
 
@@ -112,14 +143,8 @@ export async function generateMutations(params: DmSetParams): Promise<DmSetMutat
     
     toSet.push(mainNodeSet);
 
-    const setMu: Mutation = new Mutation();
-    setMu.setSetJson(toSet);
-
-    const deleteMu: Mutation = new Mutation();
-    deleteMu.setDeleteJson(toDelete);
-
     return {
-        delete: deleteMu,
-        set: setMu
-    };
+        toSet: toSet,
+        toDelete: toDelete
+    }
 }

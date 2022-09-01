@@ -3,15 +3,25 @@
   "version": "0.0.1",
   "description": "contains logic common to both the client and server",
   "main": "dist/index.js",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/types/*/**",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "tsc --watch"
+    "test": "jest",
+    "watch": "tsc --watch --project tsconfig-build.json"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ]
   },
   "author": "Michael Beeson <mbeeson@mac.com> (https://github.com/Awoogamuffin)",
   "license": "ISC",
   "devDependencies": {
+    "@types/jest": "^27.4.1",
+    "jest": "^27.5.1",
+    "ts-jest": "^27.1.4",
     "typescript": "^4.7.2"
   }
 }

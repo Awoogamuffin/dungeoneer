@@ -1,5 +1,5 @@
-import { dungeoneerSchema } from "dungeoneer-common";
 import { DmFetchParams, DmRequest, DmResponse } from "dungeoneer-common/dist/types/src/connection/connectionTypes";
+import { dungeoneerSchema } from "dungeoneer-common";
 import { dbc } from "../../index.js";
 import { DmSetMutations, DmSetResponses } from "../database/DmDgraphClient.js";
 import { generateQuery } from "../queryGenerator/DmDgraphQueryGenerator.js";
@@ -42,7 +42,7 @@ export async function handleRequest(request: DmRequest, dmws: DmWebSocket, serve
             }
 
             try {
-                const mutations: DmSetMutations | null = await generateMutations(request.params.set);
+                const mutations: DmSetMutations | null = await generateMutations(request.params.set, dungeoneerSchema);
                 if (mutations) {
                     const responses: DmSetResponses = await dbc.setData(mutations);
 
