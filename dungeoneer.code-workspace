@@ -21,6 +21,6 @@
 			"dgraphData": true
 		},
 		"jest.autoRun": null,
-    	"jest.disabledWorkspaceFolders": ["dungeoneer", "dungeoneerCommon", "dungeoneerClient"]
+    	"jest.disabledWorkspaceFolders": ["dungeoneer", "dungeoneerClient"]
 	}
 }

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from "@angular/forms";
-import { DmLinkSetParams } from "dungeoneer-common/dist/types/src/connection/connectionTypes";
-import { NodeType, NodeVar, Schema } from "dungeoneer-common/dist/types/src/schema/schemaTypes";
+import { DmLinkSetParams } from "dungeoneer-common";
+import { NodeType, NodeVar, Schema } from "dungeoneer-common";
 import { DmWebSocketService } from "../connection/dm-web-socket.service";
 import { DmUniqueValidator } from "../validation/DmUniqueValidator";
 import { DmFormInputData, DmTableInputConfig } from "./DmFormInputData";

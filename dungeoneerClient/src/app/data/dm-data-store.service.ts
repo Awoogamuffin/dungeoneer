@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DmFetchParams, DmResponse } from 'dungeoneer-common/dist/types/src/connection/connectionTypes';
+import { DmFetchParams, DmResponse } from 'dungeoneer-common';
 import { BehaviorSubject } from 'rxjs';
 import { DmWebSocketService } from '../connection/dm-web-socket.service';
 import { DmDataObject } from './dm-data-provider';

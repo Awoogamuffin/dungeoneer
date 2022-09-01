@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { WebSocketSubject } from 'rxjs/webSocket';
-import { DmRequest, DmResponse } from 'dungeoneer-common/dist/types/src/connection/connectionTypes';
+import { DmRequest, DmResponse } from 'dungeoneer-common';
 import { environment } from 'src/environments/environment';
 import { nanoid } from 'nanoid';
 import { BehaviorSubject } from 'rxjs';

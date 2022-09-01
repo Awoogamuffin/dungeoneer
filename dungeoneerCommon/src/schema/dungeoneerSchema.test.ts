@@ -1,5 +1,5 @@
 
-import { dungeoneerSchema } from "../..";
+import { dungeoneerSchema } from "./dungeoneerSchema";
 import { NodeType, NodeVar } from "./schemaTypes";
 
 describe('Testing schema', () => {

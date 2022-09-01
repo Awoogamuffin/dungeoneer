@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormGroup } from '@angular/forms';
-import { Schema } from 'dungeoneer-common/dist/types/src/schema/schemaTypes';
+import { Schema } from 'dungeoneer-common';
 import { DmWebSocketService } from 'src/app/connection/dm-web-socket.service';
 import { DmDialogService } from 'src/app/display/dialog/dm-dialog.service';
 import { DmFormInputData } from '../DmFormInputData';

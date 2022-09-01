@@ -1,5 +1,5 @@
 import { AbstractControl } from "@angular/forms";
-import { Facet, Schema } from "dungeoneer-common/dist/types/src/schema/schemaTypes";
+import { Facet, Schema } from "dungeoneer-common";
 
 export interface DmFormInputData {
     // the control that handles this input. Abstract control becasue it could be a FormArray, FormGroup or FormControl.

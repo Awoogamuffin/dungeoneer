@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { getDungeoneerSchema } from "dungeoneer-common";
-import { DmFetchParams } from 'dungeoneer-common/dist/types/src/connection/connectionTypes';
-import { NodeType } from 'dungeoneer-common/dist/types/src/schema/schemaTypes';
+import { DmFetchParams } from 'dungeoneer-common';
+import { NodeType } from 'dungeoneer-common';
 import { nanoid } from 'nanoid';
 import { Subject, takeUntil } from 'rxjs';
 import { DmUnsubscriberComponent } from 'src/app/core/dm-unsubscriber/dm-unsubscriber.component';

@@ -1,6 +1,6 @@
 import { formatDate } from '@angular/common';
 import { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
-import { NodeType, NodeVar } from 'dungeoneer-common/dist/types/src/schema/schemaTypes';
+import { NodeType, NodeVar } from 'dungeoneer-common';
 
 @Pipe({
   name: 'dmValue'

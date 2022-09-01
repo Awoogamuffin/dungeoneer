@@ -69,7 +69,7 @@
   export interface DmPagination {
     // where you start
     offset: number
-  
+
     // how many you fetch
     first: number
   }

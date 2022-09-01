@@ -1,6 +1,6 @@
 import { Mutation } from "dgraph-js";
-import { DmLinkSetParams, DmSetParams } from "dungeoneer-common/dist/types/src/connection/connectionTypes";
-import { NodeType, NodeVar, Schema } from "dungeoneer-common/dist/types/src/schema/schemaTypes";
+import { DmLinkSetParams, DmSetParams } from "dungeoneer-common";
+import { NodeType, NodeVar, Schema } from "dungeoneer-common";
 import { fullLog } from "../../index.js";
 import { DmSetMutations } from "../database/DmDgraphClient";
 

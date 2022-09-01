@@ -1,5 +1,5 @@
-import { DmSetParams } from "dungeoneer-common/dist/types/src/connection/connectionTypes";
-import { Schema } from "dungeoneer-common/dist/types/src/schema/schemaTypes";
+import { DmSetParams } from "dungeoneer-common";
+import { Schema } from "dungeoneer-common";
 import { DmSetMutations } from "../database/DmDgraphClient";
 export declare function generateMutations(params: DmSetParams, schema: Schema): Promise<DmSetMutations | null>;
 export declare function getSetArrays(params: DmSetParams, schema: Schema): Promise<{

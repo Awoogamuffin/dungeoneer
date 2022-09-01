@@ -1,7 +1,7 @@
 import { Component, Injectable } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormGroup } from '@angular/forms';
-import { Schema } from 'dungeoneer-common/dist/types/src/schema/schemaTypes';
+import { Schema } from 'dungeoneer-common';
 import { DmFormInputData } from '../DmFormInputData';
 import { DmFormUtils } from '../DmFormUtils';
 

@@ -2,7 +2,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { Component, Injectable } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AbstractControl } from '@angular/forms';
-import { DmFetchParams } from 'dungeoneer-common/dist/types/src/connection/connectionTypes';
+import { DmFetchParams } from 'dungeoneer-common';
 import { BehaviorSubject, of } from 'rxjs';
 import { DmWebSocketService } from 'src/app/connection/dm-web-socket.service';
 import { DmDataObject } from 'src/app/data/dm-data-provider';

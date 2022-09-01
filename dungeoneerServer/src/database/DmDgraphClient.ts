@@ -1,6 +1,6 @@
 import { DgraphClient, DgraphClientStub, Response, grpc, Operation } from "dgraph-js";
 import { Mutation } from "dgraph-js/generated/api_pb";
-import { Schema } from "dungeoneer-common/dist/types/src/schema/schemaTypes";
+import { Schema } from "dungeoneer-common";
 import { BehaviorSubject } from "rxjs";
 import { DmDatabaseClient } from "./DmDatabaseClient";
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { DmSetParams } from 'dungeoneer-common/dist/types/src/connection/connectionTypes';
-import { Schema } from 'dungeoneer-common/dist/types/src/schema/schemaTypes';
+import { DmSetParams } from 'dungeoneer-common';
+import { Schema } from 'dungeoneer-common';
 import { takeUntil } from 'rxjs';
 import { DmWebSocketService } from 'src/app/connection/dm-web-socket.service';
 import { DmUnsubscriberComponent } from 'src/app/core/dm-unsubscriber/dm-unsubscriber.component';
