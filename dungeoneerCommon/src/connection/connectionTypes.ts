@@ -73,7 +73,7 @@
     // how many you fetch
     first: number
   }
-
+  
   export interface DmSetParams {
     // required
     nodeType: string

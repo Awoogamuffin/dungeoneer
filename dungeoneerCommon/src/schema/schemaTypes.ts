@@ -11,7 +11,7 @@ export interface NodeType {
 	nodeVars: {
         [key: string]: NodeVar
     }
-
+	
 	// label var indicates which value in NodeVars is to be used for labels (in tables etc.)
 	// If this is not set "name" is used (if a name var exists)
 	labelVar?: string

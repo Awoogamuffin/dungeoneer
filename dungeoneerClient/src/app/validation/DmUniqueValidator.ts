@@ -9,16 +9,12 @@ export class DmUniqueValidator implements AsyncValidator {
     key: string;
     uid!: string;
 
-    dmWebSocketClient: DmWebSocketService;
-
     currentPromise!: Promise<ValidationErrors | null> | Observable<any | ValidationErrors | null>
     prevValue: any;
 
     constructor(private dmWebSocketService: DmWebSocketService, nodeType: string, key: string, inputData: any) {
         this.nodeType = nodeType;
         this.key = key;
-
-        this.dmWebSocketClient = dmWebSocketService;
 
         console.log('input data', inputData);
         // if we are editing, store the uid of the item we are editing.
@@ -44,7 +40,7 @@ export class DmUniqueValidator implements AsyncValidator {
         }
 
         this.currentPromise = new Promise(resolve => {
-            this.dmWebSocketClient.sendRequest({
+            this.dmWebSocketService.sendRequest({
                 method: 'fetch',
                 params: {
                   fetch: fetchParams
