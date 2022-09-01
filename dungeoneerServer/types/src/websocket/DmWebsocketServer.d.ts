@@ -1,5 +1,5 @@
+import { DmResponse } from 'dungeoneer-common';
 import { WebSocketServer } from 'ws';
-import { DmResponse } from 'dungeoneer-common/dist/types/src/connection/connectionTypes';
 export declare class DmWebSocketServer {
     private port;
     wsServer: WebSocketServer;

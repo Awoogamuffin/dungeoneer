@@ -1,4 +1,4 @@
-import { DmFetchParams } from "dungeoneer-common/dist/types/src/connection/connectionTypes";
+import { DmFetchParams } from "dungeoneer-common";
 import { BehaviorSubject } from "rxjs";
 import { DmDataObject, DmDataProvider } from "../dm-data-provider";
 import { DmDataStoreService } from "../dm-data-store.service";

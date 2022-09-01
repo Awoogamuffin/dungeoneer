@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "contains logic common to both the client and server",
   "main": "dist/index.js",
-  "types": "dist/types/*/**",
   "type": "module",
   "scripts": {
     "test": "jest",

@@ -1,4 +1,4 @@
-import { DmRequest } from "dungeoneer-common/dist/types/src/connection/connectionTypes";
+import { DmRequest } from "dungeoneer-common";
 import { DmWebSocket } from "./DmWebsocket.js";
 import { DmWebSocketServer } from "./DmWebsocketServer.js";
 export declare function handleRequest(request: DmRequest, dmws: DmWebSocket, server: DmWebSocketServer): Promise<void>;

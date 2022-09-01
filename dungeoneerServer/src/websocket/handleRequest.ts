@@ -1,4 +1,4 @@
-import { DmFetchParams, DmRequest, DmResponse } from "dungeoneer-common/dist/types/src/connection/connectionTypes";
+import { DmFetchParams, DmRequest, DmResponse } from "dungeoneer-common";
 import { dungeoneerSchema } from "dungeoneer-common";
 import { dbc } from "../../index.js";
 import { DmSetMutations, DmSetResponses } from "../database/DmDgraphClient.js";

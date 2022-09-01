@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Schema } from 'dungeoneer-common/dist/types/src/schema/schemaTypes';
+import { Schema } from 'dungeoneer-common';
 import { EditEventObject } from 'src/app/form/dm-form-edit/dm-edit-event.model';
 import { DmFormEditService } from 'src/app/form/dm-form-edit/dm-form-edit.service';
 

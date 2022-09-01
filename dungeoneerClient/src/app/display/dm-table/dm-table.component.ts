@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { getDungeoneerSchema } from 'dungeoneer-common';
-import { DmFetchParams } from 'dungeoneer-common/dist/types/src/connection/connectionTypes';
-import { NodeType, Schema } from 'dungeoneer-common/dist/types/src/schema/schemaTypes';
+import { DmFetchParams } from 'dungeoneer-common';
+import { NodeType, Schema } from 'dungeoneer-common';
 import { nanoid } from 'nanoid';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { DmUnsubscriberComponent } from 'src/app/core/dm-unsubscriber/dm-unsubscriber.component';

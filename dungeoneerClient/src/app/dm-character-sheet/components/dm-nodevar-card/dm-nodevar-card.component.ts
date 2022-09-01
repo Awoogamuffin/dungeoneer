@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { getDungeoneerSchema } from 'dungeoneer-common';
-import { Schema } from 'dungeoneer-common/dist/types/src/schema/schemaTypes';
+import { Schema } from 'dungeoneer-common';
 
 @Component({
   selector: 'dm-nodevar-card',

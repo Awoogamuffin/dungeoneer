@@ -1,5 +1,5 @@
 import { AbstractControl, AsyncValidator, ValidationErrors } from "@angular/forms";
-import { DmFetchParams, DmResponse } from "dungeoneer-common/dist/types/src/connection/connectionTypes";
+import { DmFetchParams, DmResponse } from "dungeoneer-common";
 import { Observable } from "rxjs";
 import { DmWebSocketService } from "../connection/dm-web-socket.service";
 

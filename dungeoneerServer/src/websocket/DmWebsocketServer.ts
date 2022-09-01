@@ -1,14 +1,13 @@
+import { DmRequest, DmResponse } from 'dungeoneer-common';
 import * as http from 'http';
 import { WebSocketServer, WebSocket } from 'ws';
 import { DmWebSocket } from './DmWebsocket';
-import { DmRequest, DmResponse } from 'dungeoneer-common/dist/types/src/connection/connectionTypes';
 import { handleRequest } from './handleRequest.js';
 
 export class DmWebSocketServer {
     wsServer: WebSocketServer;
 
     constructor(private port: number) {
-
         console.log('creating websocket server');
         // creating basic web socket server on provided port
         const server: http.Server = http.createServer();
@@ -18,7 +17,6 @@ export class DmWebSocketServer {
         this.wsServer.on('connection', (dmws: DmWebSocket) => {
             console.log('client connected');
             dmws.isAlive = true;
-
             dmws.send(JSON.stringify({
                 message: 'client connection received'
             }));

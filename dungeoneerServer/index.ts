@@ -2,7 +2,7 @@ import { DmWebSocketServer } from "./src/websocket/DmWebsocketServer.js";
 import { DmDgraphClient } from "./src/database/DmDgraphClient.js";
 import { DmDatabaseClient } from "./src/database/DmDatabaseClient";
 import * as util from 'util';
-import { dungeoneerSchema } from 'dungeoneer-common';
+import { DmRequest, dungeoneerSchema } from 'dungeoneer-common';
 
 /**
  * 
@@ -13,7 +13,6 @@ import { dungeoneerSchema } from 'dungeoneer-common';
  * 
  */
 
-console.log('SCHEMA IS', dungeoneerSchema);
 const websocketServer: DmWebSocketServer = new DmWebSocketServer(1759);
 export const dbc: DmDatabaseClient = new DmDgraphClient(dungeoneerSchema);
 

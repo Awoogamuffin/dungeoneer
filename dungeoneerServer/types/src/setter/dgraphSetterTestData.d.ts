@@ -1,5 +1,5 @@
-import { DmSetParams } from "dungeoneer-common/dist/types/src/connection/connectionTypes";
-import { Schema } from "dungeoneer-common/dist/types/src/schema/schemaTypes";
+import { DmSetParams } from "dungeoneer-common";
+import { Schema } from "dungeoneer-common";
 export interface setterTestdata {
     name: string;
     setParams: DmSetParams;

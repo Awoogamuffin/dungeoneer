@@ -2,7 +2,7 @@ import { Component, Injectable } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { DmFetchParams } from 'dungeoneer-common/dist/types/src/connection/connectionTypes';
+import { DmFetchParams } from 'dungeoneer-common';
 import { BehaviorSubject } from 'rxjs';
 import { DmDataObject } from 'src/app/data/dm-data-provider';
 import { DmDataStoreService } from 'src/app/data/dm-data-store.service';

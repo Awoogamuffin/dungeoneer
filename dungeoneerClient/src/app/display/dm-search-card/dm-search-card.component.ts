@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Schema } from 'dungeoneer-common/dist/types/src/schema/schemaTypes';
+import { Schema } from 'dungeoneer-common';
 import { getDungeoneerSchema } from 'dungeoneer-common'
 import { Subject, takeUntil } from 'rxjs';
 import { DmUnsubscriberComponent } from 'src/app/core/dm-unsubscriber/dm-unsubscriber.component';

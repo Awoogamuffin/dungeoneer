@@ -1,5 +1,5 @@
-import { DmFetchParams } from "dungeoneer-common/dist/types/src/connection/connectionTypes"
-import { Schema } from "dungeoneer-common/dist/types/src/schema/schemaTypes"
+import { DmFetchParams } from "dungeoneer-common"
+import { Schema } from "dungeoneer-common"
 
 const schema1: Schema = {
 	nodeTypes: {

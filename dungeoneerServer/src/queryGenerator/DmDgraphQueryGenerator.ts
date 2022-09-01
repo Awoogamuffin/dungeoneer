@@ -1,5 +1,5 @@
-import { DmFetchParams } from "dungeoneer-common/dist/types/src/connection/connectionTypes";
-import { JoinStep, NodeType, Schema } from "dungeoneer-common/dist/types/src/schema/schemaTypes";
+import { DmFetchParams } from "dungeoneer-common";
+import { JoinStep, NodeType, Schema } from "dungeoneer-common";
 import { DateTime } from 'luxon';
 
 export function  generateQuery(params: DmFetchParams, schema: Schema): string {

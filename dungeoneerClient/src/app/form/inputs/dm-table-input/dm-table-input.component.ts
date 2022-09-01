@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, Input, OnInit } from '@angular/core';
 import { FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { getDungeoneerSchema } from 'dungeoneer-common';
-import { Facet, Schema } from 'dungeoneer-common/dist/types/src/schema/schemaTypes';
+import { Facet, Schema } from 'dungeoneer-common';
 import { distinctUntilChanged, Subject, takeUntil } from 'rxjs';
 import { DmWebSocketService } from 'src/app/connection/dm-web-socket.service';
 import { DmDataProvider } from 'src/app/data/dm-data-provider';
